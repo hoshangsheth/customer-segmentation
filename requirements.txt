@@ -1,0 +1,11 @@
+# Runtime dependencies (pinned versions used for the reported results)
+fastapi==0.162.6
+uvicorn[standard]==0.54.0
+pydantic==2.14.3
+pydantic-settings==2.16.3
+pandas==3.1.1
+numpy==2.5.4
+scikit-learn==1.9.1
+xgboost==3.4.1
+joblib==1.6.0
+google-genai==3.3.0

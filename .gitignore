@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.env
+data/raw/*
+!data/raw/.gitkeep
+frontend/node_modules/
+frontend/dist/
+.claude/
+.vscode/
+.idea/

@@ -1,0 +1,36 @@
+# pytest -q        run tests
+# ruff check .     lint
+# ruff format .    format
+
+[project]
+name = "customer-segmentation"
+version = "1.0.0"
+description = "Customer segmentation and campaign targeting: K-Means segments, an XGBoost response model with SHAP, measured lift, and an optional LLM layer."
+requires-python = ">=3.11"
+license = "MIT"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.coverage.run]
+source = ["customer_segmentation"]
+omit = ["customer_segmentation/api/main.py"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = [".venv", "frontend", "data", "artifacts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "N"]
+ignore = [
+    "B008",  # FastAPI Depends() in default arguments is the intended pattern
+    "N803",  # X, y as argument names follow scikit-learn convention
+    "N806",
+    "E501",
+    "N818",  # exception names read better without an Error suffix (SegmentNotFound)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["customer_segmentation", "tests"]

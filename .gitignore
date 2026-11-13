@@ -6,6 +6,8 @@ __pycache__/
 .coverage
 htmlcov/
 .env
+data/*
+!data/raw/
 data/raw/*
 !data/raw/.gitkeep
 frontend/node_modules/

@@ -2,32 +2,83 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+  Design tokens. Dark is the primary look: a green-black canvas, card surfaces a step lighter,
+  hairline borders and one acid-lime accent. Light mode swaps the canvas for warm paper and
+  uses a deeper olive wherever lime would be text or a thin line.
+*/
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Bricolage Grotesque", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-night: var(--night);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-lime: #d9ff3d;
+  --color-on-lime: #0a0e0a;
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 :root {
   color-scheme: light;
-  --chart-grid: #e2e8f0;
-  --chart-axis: #64748b;
+  --night: #f3f4ee;
+  --surface: #ffffff;
+  --raised: #eceee6;
+  --line: #dfe2d8;
+  --ink: #0a0e0a;
+  --mute: #5f665e;
+  --accent: #557000;
+  --danger: #d93a3a;
+  --chart-grid: #e3e6dc;
+  --chart-axis: #6b7269;
 }
+
 .dark {
   color-scheme: dark;
-  --chart-grid: #1e293b;
-  --chart-axis: #94a3b8;
+  --night: #0a0e0a;
+  --surface: #15191a;
+  --raised: #1b2020;
+  --line: #1f2421;
+  --ink: #ffffff;
+  --mute: #7a8079;
+  --accent: #d9ff3d;
+  --danger: #ff6b5b;
+  --chart-grid: #1f2421;
+  --chart-axis: #7a8079;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  @apply bg-night font-sans text-ink antialiased;
+  overflow-x: hidden;
 }
 
-/* Themed scrollbars */
+::selection {
+  background: #d9ff3d;
+  color: #0a0e0a;
+}
+
 * {
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
-}
-.dark * {
-  scrollbar-color: #334155 transparent;
+  scrollbar-color: var(--line) transparent;
 }
 
 .recharts-wrapper:focus,
@@ -36,5 +87,20 @@ body {
 }
 
 input[type="range"] {
-  accent-color: #4f46e5;
+  accent-color: var(--accent);
+}
+
+/* Set for one frame while the theme changes, so it repaints once instead of animating every colour */
+.theme-switching,
+.theme-switching * {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
+  }
 }

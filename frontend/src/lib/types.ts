@@ -149,41 +149,6 @@ export interface ModelMetrics {
   cleaning: Record<string, number>
 }
 
-export type SpendKey = 'wine' | 'fruit' | 'meat' | 'fish' | 'sweet' | 'gold'
-export type PurchaseKey = 'web' | 'catalog' | 'store' | 'deals'
-
-export interface CustomerIn {
-  year_birth: number
-  education: 'Undergraduate' | 'Graduate' | 'Postgraduate'
-  marital_status: 'Partnered' | 'Single'
-  income: number
-  kids: number
-  teens: number
-  customer_since: string
-  recency: number
-  spend: Record<SpendKey, number>
-  purchases: Record<PurchaseKey, number>
-  web_visits: number
-  accepted_campaigns: number[]
-  complain: boolean
-}
-
-export interface Reason {
-  feature: string
-  label: string
-  value: number
-  shap: number
-}
-
-export interface ScoreOut {
-  segment_id: number
-  segment_name: string
-  probability: number
-  base_rate: number
-  lift_vs_average: number
-  reasons: Reason[]
-}
-
 export interface Persona {
   segment_id: number
   segment_name: string
@@ -191,14 +156,6 @@ export interface Persona {
   motivations: string[]
   campaigns: { title: string; channel: string; offer: string; rationale: string }[]
   watch_outs: string[]
-  source: 'llm' | 'rule-based'
-  model: string
-}
-
-export interface Explanation {
-  score: ScoreOut
-  summary: string
-  next_best_action: string
   source: 'llm' | 'rule-based'
   model: string
 }

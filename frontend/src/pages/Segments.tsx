@@ -17,10 +17,22 @@ import {
   YAxis,
 } from 'recharts'
 import { TooltipBox } from '../components/chart'
-import { axisProps, gridProps } from '../lib/chartTheme'
-import { Card, ErrorBox, Loading, PageHeader, SegmentDot } from '../components/ui'
+import { Page } from '../components/Layout'
+import { Card, ErrorBox, Loading, PageHeader, PillTabs, Reveal, SegmentDot } from '../components/ui'
 import { api } from '../lib/api'
-import { CHANNEL_LABELS, int, money, num, pct, segmentColor, SPEND_COLORS, SPEND_LABELS, times } from '../lib/format'
+import { ACCENT, axisProps, gridProps } from '../lib/chartTheme'
+import {
+  CHANNEL_COLORS,
+  CHANNEL_LABELS,
+  int,
+  money,
+  num,
+  pct,
+  segmentColor,
+  SPEND_COLORS,
+  SPEND_LABELS,
+  times,
+} from '../lib/format'
 import type { Means, Projection, SegmentProfile, SegmentsOverview } from '../lib/types'
 import { useApi } from '../lib/useApi'
 
@@ -42,47 +54,50 @@ export default function Segments() {
   const proj = useApi('projection', api.projection)
   const [params, setParams] = useSearchParams()
 
-  if (seg.loading) return <Loading />
-  if (seg.error || !seg.data) return <ErrorBox message={seg.error ?? 'No data'} />
+  if (seg.loading)
+    return (
+      <Page>
+        <Loading />
+      </Page>
+    )
+  if (seg.error || !seg.data)
+    return (
+      <Page>
+        <ErrorBox message={seg.error ?? 'No data'} />
+      </Page>
+    )
 
   const segments = seg.data.segments
   const selectedId = Number(params.get('id') ?? segments[0].segment_id)
   const selected = segments.find((s) => s.segment_id === selectedId) ?? segments[0]
 
   return (
-    <>
+    <Page>
       <PageHeader
-        title="Segments"
-        subtitle="K-Means on scaled behaviour and household features (campaign history left out, so response rates are an honest check). Pick a segment to see its profile."
+        eyebrow="Segments"
+        title="Who your customers"
+        accent="really are."
+        subtitle="K-Means on scaled behaviour and household features. Campaign history is left out, so response rates are an honest check. Pick a segment to see its profile."
       />
-      <div className="mb-6 flex flex-wrap gap-2">
-        {segments.map((s) => (
-          <button
-            key={s.segment_id}
-            onClick={() => setParams({ id: String(s.segment_id) }, { replace: true })}
-            className={`relative flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors ${
-              s.segment_id === selected.segment_id
-                ? 'border-transparent text-white'
-                : 'border-slate-200 bg-white hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-slate-600'
-            }`}
-          >
-            {s.segment_id === selected.segment_id && (
-              <motion.span
-                layoutId="seg-pill"
-                className="absolute inset-0 rounded-full"
-                style={{ backgroundColor: segmentColor(s.segment_id) }}
-                transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-              />
-            )}
-            <span className="relative flex items-center gap-2">
-              {s.segment_id !== selected.segment_id && <SegmentDot color={segmentColor(s.segment_id)} />}
-              {s.name}
-            </span>
-          </button>
-        ))}
+
+      <div className="mb-8">
+        <PillTabs
+          layoutId="segment-tab"
+          value={selected.segment_id}
+          onChange={(id) => setParams({ id: String(id) }, { replace: true })}
+          items={segments.map((s) => ({
+            value: s.segment_id,
+            label: (
+              <>
+                <SegmentDot color={segmentColor(s.segment_id)} className="size-2.5 ring-2 ring-black/10" />
+                {s.name}
+              </>
+            ),
+          }))}
+        />
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-5">
+      <div className="grid gap-5 xl:grid-cols-5 xl:items-start">
         <Card
           className="xl:col-span-3"
           title="Customers in 2-D"
@@ -97,22 +112,21 @@ export default function Segments() {
         <ProfileCard segment={selected} population={seg.data.population} />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <Card title="Spend mix" subtitle="Share of each segment's spend by category">
-          <MixChart segments={segments} field="spend_mix" labels={SPEND_LABELS} colors={SPEND_COLORS} />
-        </Card>
-        <Card title="Channel mix" subtitle="Share of purchases by channel">
-          <MixChart
-            segments={segments}
-            field="channel_mix"
-            labels={CHANNEL_LABELS}
-            colors={{ web: '#0ea5e9', catalog: '#8b5cf6', store: '#14b8a6' }}
-          />
-        </Card>
+      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+        <Reveal>
+          <Card title="Spend mix" subtitle="Share of each segment's spend by category">
+            <MixChart segments={segments} field="spend_mix" labels={SPEND_LABELS} colors={SPEND_COLORS} />
+          </Card>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <Card title="Channel mix" subtitle="Share of purchases by channel">
+            <MixChart segments={segments} field="channel_mix" labels={CHANNEL_LABELS} colors={CHANNEL_COLORS} />
+          </Card>
+        </Reveal>
       </div>
 
       <KSelectionCard data={seg.data.k_selection} />
-    </>
+    </Page>
   )
 }
 
@@ -136,7 +150,7 @@ function ProjectionChart({
   const names = Object.fromEntries(segments.map((s) => [s.segment_id, s.name]))
 
   return (
-    <div className="h-80 sm:h-96">
+    <div className="h-80 sm:h-[26rem]">
       <ResponsiveContainer>
         <ScatterChart margin={{ top: 8, right: 8, bottom: 8, left: -16 }}>
           <CartesianGrid {...gridProps} vertical />
@@ -153,7 +167,7 @@ function ProjectionChart({
               key={id}
               data={pts.map((p) => ({ ...p, segment: id }))}
               fill={segmentColor(id)}
-              fillOpacity={id === selected ? 0.85 : 0.18}
+              fillOpacity={id === selected ? 0.9 : 0.15}
               shape="circle"
               isAnimationActive={false}
               r={2}
@@ -167,56 +181,60 @@ function ProjectionChart({
 
 function ProfileCard({ segment, population }: { segment: SegmentProfile; population: SegmentsOverview['population'] }) {
   const rateLift = segment.response_rate / population.response_rate
+  const color = segmentColor(segment.segment_id)
   return (
-    <Card className="xl:col-span-2">
-      <motion.div key={segment.segment_id} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }}>
-        <div className="flex items-center gap-2">
-          <SegmentDot color={segmentColor(segment.segment_id)} />
-          <h2 className="text-lg font-semibold">{segment.name}</h2>
+    <section className="relative overflow-hidden rounded-3xl border border-line bg-surface p-6 xl:col-span-2">
+      <div
+        className="pointer-events-none absolute -top-24 -right-24 size-64 rounded-full"
+        style={{ background: `radial-gradient(circle, ${color}33, transparent 70%)` }}
+        aria-hidden
+      />
+      <motion.div key={segment.segment_id} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} className="relative">
+        <p className="text-[10px] tracking-widest text-mute uppercase">Segment profile</p>
+        <h2 className="mt-1 font-display text-3xl font-bold tracking-tight uppercase">{segment.name}</h2>
+        <p className="mt-2 text-sm text-mute">{segment.tagline}</p>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          <MiniStat label="Customers" value={int(segment.size)} sub={pct(segment.share, 0)} />
+          <MiniStat label="Response" value={pct(segment.response_rate)} sub={`${times(rateLift, 1)} avg`} highlight={rateLift >= 1} />
+          <MiniStat label="Past offer" value={pct(segment.prior_accept_rate, 0)} sub="took one" />
         </div>
-        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{segment.tagline}</p>
-        <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-          <Stat label="Customers" value={`${int(segment.size)}`} sub={pct(segment.share, 0)} />
-          <Stat label="Response" value={pct(segment.response_rate)} sub={`${times(rateLift, 1)} average`} />
-          <Stat label="Took a past offer" value={pct(segment.prior_accept_rate, 0)} />
-        </div>
-        <ul className="mt-4 space-y-1 text-sm">
+        <ul className="mt-5 space-y-1.5 text-sm">
           {segment.traits.map((t) => (
-            <li key={t} className="flex gap-2">
-              <span className="mt-2 size-1 shrink-0 rounded-full bg-slate-400" />
+            <li key={t} className="flex gap-2.5">
+              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-lime" />
               {t}
             </li>
           ))}
         </ul>
-        <table className="mt-4 w-full text-sm">
+        <table className="mt-5 w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-slate-500 dark:text-slate-400">
-              <th className="py-1 font-medium">Measure</th>
-              <th className="py-1 text-right font-medium">Segment</th>
-              <th className="py-1 text-right font-medium">Everyone</th>
+            <tr className="text-left text-[10px] tracking-widest text-mute uppercase">
+              <th className="py-1.5 font-medium">Measure</th>
+              <th className="py-1.5 text-right font-medium">Segment</th>
+              <th className="py-1.5 text-right font-medium">Everyone</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody className="divide-y divide-line">
             {MEASURES.map((m) => (
               <tr key={m.key}>
-                <td className="py-1.5 text-slate-600 dark:text-slate-400">{m.label}</td>
-                <td className="py-1.5 text-right font-medium tabular-nums">{m.fmt(segment.means[m.key])}</td>
-                <td className="py-1.5 text-right text-slate-500 tabular-nums">{m.fmt(population[m.key])}</td>
+                <td className="py-2 text-mute">{m.label}</td>
+                <td className="py-2 text-right font-semibold tabular-nums">{m.fmt(segment.means[m.key])}</td>
+                <td className="py-2 text-right text-mute tabular-nums">{m.fmt(population[m.key])}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </motion.div>
-    </Card>
+    </section>
   )
 }
 
-function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
+function MiniStat({ label, value, sub, highlight }: { label: string; value: string; sub?: string; highlight?: boolean }) {
   return (
-    <div className="rounded-xl bg-slate-50 p-2.5 dark:bg-slate-800/60">
-      <div className="text-[11px] text-slate-500 dark:text-slate-400">{label}</div>
-      <div className="font-semibold tabular-nums">{value}</div>
-      {sub && <div className="text-[11px] text-slate-500 dark:text-slate-400">{sub}</div>}
+    <div className={`rounded-2xl p-3 ${highlight ? 'bg-lime text-on-lime' : 'bg-raised'}`}>
+      <div className={`text-[10px] tracking-widest uppercase ${highlight ? 'text-on-lime/70' : 'text-mute'}`}>{label}</div>
+      <div className="mt-0.5 font-display text-xl font-bold tabular-nums">{value}</div>
+      {sub && <div className={`text-[11px] ${highlight ? 'text-on-lime/70' : 'text-mute'}`}>{sub}</div>}
     </div>
   )
 }
@@ -235,9 +253,9 @@ function MixChart({
   const keys = Object.keys(labels)
   const rows = segments.map((s) => ({ name: s.name, ...s[field] }))
   return (
-    <div style={{ height: 48 * segments.length + 60 }}>
+    <div style={{ height: 52 * segments.length + 64 }}>
       <ResponsiveContainer>
-        <BarChart data={rows} layout="vertical" margin={{ left: 8, right: 8 }} barSize={18}>
+        <BarChart data={rows} layout="vertical" margin={{ left: 8, right: 8 }} barSize={20}>
           <XAxis type="number" domain={[0, 1]} tickFormatter={(v) => pct(v, 0)} {...axisProps} />
           <YAxis type="category" dataKey="name" width={150} {...axisProps} />
           <Tooltip
@@ -255,14 +273,14 @@ function MixChart({
               ) : null
             }
           />
-          <Legend formatter={(v) => labels[v] ?? v} wrapperStyle={{ fontSize: 12 }} />
+          <Legend formatter={(v) => <span className="text-mute">{labels[v] ?? v}</span>} wrapperStyle={{ fontSize: 12 }} iconType="circle" />
           {keys.map((k, i) => (
             <Bar
               key={k}
               dataKey={k}
               stackId="mix"
               fill={colors[k]}
-              radius={i === keys.length - 1 ? [0, 4, 4, 0] : i === 0 ? [4, 0, 0, 4] : 0}
+              radius={i === keys.length - 1 ? [0, 10, 10, 0] : i === 0 ? [10, 0, 0, 10] : 0}
             />
           ))}
         </BarChart>
@@ -273,16 +291,17 @@ function MixChart({
 
 function KSelectionCard({ data }: { data: SegmentsOverview['k_selection'] }) {
   return (
-    <Card
-      className="mt-6"
-      title="How the number of segments was chosen"
-      subtitle={`k = ${data.chosen_k} (${data.rule}). The elbow of the inertia curve is at k = ${data.elbow_k}.`}
-    >
-      <div className="grid gap-6 md:grid-cols-2">
-        <KChart scores={data.scores} field="silhouette" label="Silhouette (higher is better)" chosen={data.chosen_k} />
-        <KChart scores={data.scores} field="inertia" label="Inertia (elbow)" chosen={data.chosen_k} />
-      </div>
-    </Card>
+    <Reveal className="mt-5">
+      <Card
+        title="How the number of segments was chosen"
+        subtitle={`k = ${data.chosen_k} (${data.rule}). The elbow of the inertia curve is at k = ${data.elbow_k}.`}
+      >
+        <div className="grid gap-6 md:grid-cols-2">
+          <KChart scores={data.scores} field="silhouette" label="Silhouette (higher is better)" chosen={data.chosen_k} />
+          <KChart scores={data.scores} field="inertia" label="Inertia (elbow)" chosen={data.chosen_k} />
+        </div>
+      </Card>
+    </Reveal>
   )
 }
 
@@ -299,14 +318,18 @@ function KChart({
 }) {
   return (
     <div>
-      <div className="mb-2 text-xs font-medium text-slate-500 dark:text-slate-400">{label}</div>
-      <div className="h-48">
+      <div className="mb-2 text-[10px] tracking-widest text-mute uppercase">{label}</div>
+      <div className="h-52">
         <ResponsiveContainer>
-          <LineChart data={scores} margin={{ left: -8, right: 8 }}>
+          <LineChart data={scores} margin={{ left: -8, right: 8, top: 8 }}>
             <CartesianGrid {...gridProps} />
             <XAxis dataKey="k" {...axisProps} />
-            <YAxis {...axisProps} tickFormatter={(v) => (field === 'inertia' ? `${Math.round(v / 1000)}k` : v.toFixed(2))} domain={['auto', 'auto']} />
-            <ReferenceLine x={chosen} stroke="#6366f1" strokeDasharray="4 4" />
+            <YAxis
+              {...axisProps}
+              tickFormatter={(v) => (field === 'inertia' ? `${Math.round(v / 1000)}k` : v.toFixed(2))}
+              domain={['auto', 'auto']}
+            />
+            <ReferenceLine x={chosen} stroke={ACCENT} strokeDasharray="4 4" />
             <Tooltip
               content={({ payload }) =>
                 payload?.[0] ? (
@@ -317,7 +340,7 @@ function KChart({
                 ) : null
               }
             />
-            <Line type="monotone" dataKey={field} stroke="#6366f1" strokeWidth={2} dot={{ r: 3 }} />
+            <Line type="monotone" dataKey={field} stroke={ACCENT} strokeWidth={2.5} dot={{ r: 4, fill: ACCENT, strokeWidth: 0 }} />
           </LineChart>
         </ResponsiveContainer>
       </div>

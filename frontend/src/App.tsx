@@ -7,7 +7,7 @@ import { Loading } from './components/ui'
 const Overview = lazy(() => import('./pages/Overview'))
 const Segments = lazy(() => import('./pages/Segments'))
 const Targeting = lazy(() => import('./pages/Targeting'))
-const Score = lazy(() => import('./pages/Score'))
+const Analyze = lazy(() => import('./pages/Analyze'))
 const Insights = lazy(() => import('./pages/Insights'))
 
 export default function App() {
@@ -18,7 +18,8 @@ export default function App() {
           <Route path="/" element={<Overview />} />
           <Route path="/segments" element={<Segments />} />
           <Route path="/targeting" element={<Targeting />} />
-          <Route path="/score" element={<Score />} />
+          <Route path="/analyze" element={<Analyze />} />
+          <Route path="/performance" element={<Targeting />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="*" element={<Overview />} />
         </Routes>

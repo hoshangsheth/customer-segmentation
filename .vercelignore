@@ -1,7 +1,7 @@
-.venv
-tests
-model_evaluation
-docs
-data
-frontend/node_modules
-frontend/dist
+/.venv
+/tests
+/model_evaluation
+/docs
+/data
+/frontend/node_modules
+/frontend/dist

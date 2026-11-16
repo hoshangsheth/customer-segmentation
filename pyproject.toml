@@ -8,6 +8,23 @@ version = "1.0.0"
 description = "Customer segmentation and campaign targeting: K-Means segments, an XGBoost response model with SHAP, measured lift, and an optional LLM layer."
 requires-python = ">=3.11"
 license = "MIT"
+# Runtime dependencies. Vercel installs from here; requirements.txt pins the same versions for pip users.
+dependencies = [
+    "fastapi==0.162.6",
+    "uvicorn[standard]==0.54.0",
+    "pydantic==2.14.3",
+    "pydantic-settings==2.16.3",
+    "pandas==3.1.1",
+    "numpy==2.5.4",
+    "scikit-learn==1.9.1",
+    "joblib==1.6.0",
+    "openpyxl==3.1.5",
+    "python-multipart==0.0.33",
+    "google-genai==3.3.0",
+    # CPU-only build on Linux servers: the standard Linux wheel bundles large GPU libraries
+    "xgboost==3.4.1; sys_platform != 'linux'",
+    "xgboost-cpu==3.4.1; sys_platform == 'linux'",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -37,3 +54,7 @@ known-first-party = ["customer_segmentation", "tests"]
 
 [tool.vercel]
 entrypoint = "customer_segmentation.api.main:app"
+
+[tool.vercel.scripts]
+# Build the web app into frontend/dist (served by the API at /), then drop node_modules to keep the function small
+build = "cd frontend && npm ci && npm run build && rm -rf node_modules"

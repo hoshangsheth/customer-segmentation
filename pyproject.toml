@@ -34,3 +34,6 @@ ignore = [
 
 [tool.ruff.lint.isort]
 known-first-party = ["customer_segmentation", "tests"]
+
+[tool.vercel]
+entrypoint = "customer_segmentation.api.main:app"

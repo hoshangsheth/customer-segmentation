@@ -14,6 +14,14 @@ class FakeLLM:
 
     def complete_json(self, *, system: str, user: str, schema: dict[str, Any]) -> dict[str, Any]:
         self.calls.append({"system": system, "user": user, "schema": schema})
+        if "actions" in schema["properties"]:
+            return {
+                "headline": "Fake headline.",
+                "summary": "Fake brief.",
+                "actions": [{"segment": "S", "audience": "10", "channel": "email", "message": "M", "why": "W"}],
+                "budget_note": "Fake budget.",
+                "watch_outs": [],
+            }
         if "campaigns" in schema["properties"]:
             return {
                 "persona": "Fake persona.",

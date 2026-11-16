@@ -72,3 +72,20 @@ def test_app_without_artifacts_reports_503(tmp_path):
     assert client.get("/api/health").json()["model_version"] == ""
     assert client.get("/api/overview").status_code == 503
     assert client.get("/api/insights/segments/0").status_code == 503
+
+
+def test_serves_built_frontend(settings, bundle, tmp_path):
+    from fastapi.testclient import TestClient
+
+    from customer_segmentation.api.app import create_app
+
+    (tmp_path / "assets").mkdir()
+    (tmp_path / "index.html").write_text("<html>app</html>", encoding="utf-8")
+    (tmp_path / "assets" / "a.js").write_text("x", encoding="utf-8")
+    (tmp_path / "favicon.svg").write_text("<svg/>", encoding="utf-8")
+    c = TestClient(create_app(settings.model_copy(update={"frontend_dist": tmp_path}), bundle=bundle, provider=None))
+    assert c.get("/analyze").text == "<html>app</html>"  # client-side route falls back to the app
+    assert "immutable" in c.get("/assets/a.js").headers["cache-control"]
+    assert c.get("/favicon.svg").text == "<svg/>"
+    assert c.get("/api/nope").status_code == 404
+    assert c.get("/api/health").json()["status"] == "ok"

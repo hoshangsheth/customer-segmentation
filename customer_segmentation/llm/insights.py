@@ -9,10 +9,13 @@ from typing import Any
 
 from customer_segmentation.llm.contracts import LLMError, LLMProvider
 from customer_segmentation.llm.prompts import (
+    BRIEF_SCHEMA,
+    BRIEF_SYSTEM,
     EXPLAIN_SCHEMA,
     EXPLAIN_SYSTEM,
     PERSONA_SCHEMA,
     PERSONA_SYSTEM,
+    brief_prompt,
     explain_prompt,
     persona_prompt,
 )
@@ -100,13 +103,62 @@ class InsightsService:
             return {**data, "source": "llm", "model": getattr(self.provider, "model", "")}
         return {**self._explain_fallback(score), "source": "rule-based", "model": ""}
 
+    def campaign_brief(self, context: dict) -> dict[str, Any]:
+        data = self._ask(BRIEF_SYSTEM, brief_prompt(context), BRIEF_SCHEMA)
+        if data is not None:
+            return {**data, "source": "llm", "model": getattr(self.provider, "model", "")}
+        return {**self._brief_fallback(context), "source": "rule-based", "model": ""}
+
+    @staticmethod
+    def _brief_fallback(ctx: dict) -> dict[str, Any]:
+        t = ctx["target"]
+        share = round(t["share"] * 100)
+        actions = []
+        for seg in ctx["target_segments"][:4]:
+            title, channel, offer, rationale = PLAYBOOK.get(seg["segment"], PLAYBOOK["Steady mid-spenders"])[0]
+            actions.append(
+                {
+                    "segment": seg["segment"],
+                    "audience": f"{seg['customers']:,} customers in the target list",
+                    "channel": channel,
+                    "message": f"{title}: {offer}",
+                    "why": f"{seg['expected_responders']:.0f} expected responders; {rationale.lower()}",
+                }
+            )
+        watch = []
+        if not ctx["model"]["uses_history"]:
+            watch.append(
+                "No campaign history was provided, so the behaviour-only model was used; adding history usually sharpens the ranking."
+            )
+        if ctx["data_fit_flags"]:
+            watch.append(
+                "Some customer values sit outside the range the model was trained on: "
+                + ", ".join(ctx["data_fit_flags"][:3])
+                + "."
+            )
+        watch.append("Expected responders are model estimates; compare them with actual results after the campaign.")
+        return {
+            "headline": f"Contact the top {share}% of customers ({t['contacts']:,}) for about {t['expected_responders']:.0f} expected responders.",
+            "summary": (
+                f"The model ranked {ctx['customers']:,} customers. Contacting the top {share}% is expected to reach "
+                f"{t['expected_responders']:.0f} responders, against {ctx['expected_responders_all']:.0f} if everyone were contacted."
+            ),
+            "actions": actions,
+            "budget_note": (
+                f"At {t['cost_per_contact']:g} per contact and {t['revenue_per_response']:g} per response, the expected cost is "
+                f"{t['cost']:,.0f}, expected revenue {t['revenue']:,.0f} and expected profit {t['profit']:,.0f}."
+            ),
+            "watch_outs": watch[:3],
+        }
+
     @staticmethod
     def _persona_fallback(segment: dict) -> dict[str, Any]:
         name = segment["name"]
         traits = segment.get("traits", [])
         persona = segment.get("tagline", "") or name
         if traits:
-            persona += f" Compared with the average customer: {'; '.join(traits)}."
+            joined = "; ".join(t[:1].lower() + t[1:] for t in traits)
+            persona += f" Compared with the average customer: {joined}."
         campaigns = [
             {"title": t, "channel": c, "offer": o, "rationale": r}
             for t, c, o, r in PLAYBOOK.get(name, PLAYBOOK["Steady mid-spenders"])

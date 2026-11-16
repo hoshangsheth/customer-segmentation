@@ -22,7 +22,12 @@ from customer_segmentation.data.schema import COST_CONTACT, ID, PRIOR_CAMPAIGNS,
 from customer_segmentation.evaluation import lift
 from customer_segmentation.evaluation.metrics import holdout_metrics
 from customer_segmentation.explainability.shap_values import global_importance
-from customer_segmentation.features.engineering import RESPONSE_FEATURES, build_features, reference_date_for
+from customer_segmentation.features.engineering import (
+    BEHAVIOUR_FEATURES,
+    RESPONSE_FEATURES,
+    build_features,
+    reference_date_for,
+)
 from customer_segmentation.modelling.response_model import (
     cross_validate,
     make_baseline,
@@ -104,6 +109,14 @@ def run(settings: Settings, data_path: Path | None = None, out_dir: Path | None 
         "holdout ROC AUC %.3f, PR AUC %.3f (baseline %.3f)", holdout.roc_auc, holdout.pr_auc, baseline_holdout.roc_auc
     )
 
+    # Behaviour-only model for customer files without campaign history (same split, seed and settings)
+    Xb_train, Xb_test = X_train[BEHAVIOUR_FEATURES], X_test[BEHAVIOUR_FEATURES]
+    cv_nh = cross_validate(lambda: make_model(rs), Xb_train, y_train, settings.cv_folds, rs)
+    model_nh = make_model(rs).fit(Xb_train, y_train)
+    holdout_nh = holdout_metrics(y_test, model_nh.predict_proba(Xb_test)[:, 1])
+    oof_nh = out_of_fold_scores(X[BEHAVIOUR_FEATURES], y, settings.cv_folds, rs)
+    log.info("behaviour-only model: holdout ROC AUC %.3f, PR AUC %.3f", holdout_nh.roc_auc, holdout_nh.pr_auc)
+
     # Lift: out-of-fold scores for every customer, segment ranking learned on train, measured on test
     oof = out_of_fold_scores(X, y, settings.cv_folds, rs)
     cost, revenue = float(df[COST_CONTACT].iloc[0]), float(df[REVENUE].iloc[0])
@@ -149,6 +162,13 @@ def run(settings: Settings, data_path: Path | None = None, out_dir: Path | None 
             "holdout": holdout.to_dict(),
             "baseline_holdout": {"roc_auc": baseline_holdout.roc_auc, "pr_auc": baseline_holdout.pr_auc},
             "global_importance": global_importance(model, X_test),
+            "no_history": {
+                "features": BEHAVIOUR_FEATURES,
+                "cv": cv_nh.to_dict(),
+                "holdout": {k: v for k, v in holdout_nh.to_dict().items() if k != "calibration"},
+                "top_decile_lift": lift.decile_table(y, oof_nh)[0].lift,
+                "global_importance": global_importance(model_nh, Xb_test),
+            },
         },
         "lift": {
             "method": "out-of-fold scores from stratified K-fold over all customers",
@@ -163,9 +183,16 @@ def run(settings: Settings, data_path: Path | None = None, out_dir: Path | None 
             },
         },
         "score_defaults": score_defaults(df),
-        "meta": {"reference_date": ref_date.isoformat(), "income_median": cleaning.income_median},
+        "meta": {
+            "reference_date": ref_date.isoformat(),
+            "income_median": cleaning.income_median,
+            # 1st to 99th percentile of each model feature, used to flag uploads that look unlike the training data
+            "feature_ranges": {
+                f: [float(features[f].quantile(0.01)), float(features[f].quantile(0.99))] for f in RESPONSE_FEATURES
+            },
+        },
     }
-    bundle = store.Bundle(store.new_version(), segmenter, pca, model, report)
+    bundle = store.Bundle(store.new_version(), segmenter, pca, model, report, response_model_no_history=model_nh)
     bundle.report["version"] = bundle.version
     folder = store.save(bundle, out_dir or settings.artifacts_dir)
     log.info("saved artifacts to %s", folder)

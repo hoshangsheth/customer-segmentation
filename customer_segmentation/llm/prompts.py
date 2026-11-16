@@ -1,4 +1,4 @@
-"""Prompts and JSON schemas for the two AI features. Only computed numbers go in; nothing is invented."""
+"""Prompts and JSON schemas for the AI features. Only computed numbers go in; nothing is invented."""
 
 import json
 
@@ -63,3 +63,40 @@ def persona_prompt(segment: dict, population: dict) -> str:
 
 def explain_prompt(score: dict) -> str:
     return f"Customer score:\n{json.dumps(score, indent=1)}\n\nExplain this score."
+
+
+BRIEF_SYSTEM = (
+    "You are a marketing analyst writing a short campaign brief for a retailer from a model's analysis of "
+    "their customer file. Use only the numbers you are given; do not invent any. Expected responders are "
+    "model estimates, so say 'expected'. Plain English, concrete, no hype, no emojis."
+)
+
+BRIEF_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "headline": {"type": "string", "description": "One sentence: who to contact and the expected result."},
+        "summary": {"type": "string", "description": "2 or 3 sentences on the opportunity."},
+        "actions": {
+            "type": "array",
+            "description": "2 to 4 actions, one per segment worth contacting, largest expected impact first.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "segment": {"type": "string"},
+                    "audience": {"type": "string", "description": "How many customers, from the numbers given."},
+                    "channel": {"type": "string", "enum": ["web", "catalog", "store", "email"]},
+                    "message": {"type": "string", "description": "The offer or message."},
+                    "why": {"type": "string", "description": "Which number supports it."},
+                },
+                "required": ["segment", "audience", "channel", "message", "why"],
+            },
+        },
+        "budget_note": {"type": "string", "description": "One sentence on cost, expected revenue and profit."},
+        "watch_outs": {"type": "array", "items": {"type": "string"}, "description": "0 to 3 caveats."},
+    },
+    "required": ["headline", "summary", "actions", "budget_note", "watch_outs"],
+}
+
+
+def brief_prompt(context: dict) -> str:
+    return f"Analysis of the uploaded customer file:\n{json.dumps(context, indent=1)}\n\nWrite the campaign brief."

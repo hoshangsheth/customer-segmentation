@@ -6,7 +6,8 @@ Versioned model artifacts on disk.
       20261113-101500/
         segmenter.joblib        log1p + scaler + K-Means pipeline
         projection.joblib       2-D PCA for the scatter plot
-        response_model.joblib   XGBoost classifier
+        response_model.joblib   XGBoost classifier (uses campaign history)
+        response_model_no_history.joblib   XGBoost on behaviour only, for files without history
         report.json             metrics, profiles, lift, metadata (everything the API serves)
 """
 
@@ -22,6 +23,7 @@ from sklearn.pipeline import Pipeline
 from xgboost import XGBClassifier
 
 LATEST = "LATEST"
+NO_HISTORY_FILE = "response_model_no_history.joblib"
 
 
 class ArtifactsNotFound(FileNotFoundError):
@@ -35,6 +37,7 @@ class Bundle:
     projection: PCA
     response_model: XGBClassifier
     report: dict[str, Any]
+    response_model_no_history: XGBClassifier | None = None
 
 
 def new_version(now: datetime | None = None) -> str:
@@ -47,6 +50,8 @@ def save(bundle: Bundle, root: Path) -> Path:
     joblib.dump(bundle.segmenter, folder / "segmenter.joblib")
     joblib.dump(bundle.projection, folder / "projection.joblib")
     joblib.dump(bundle.response_model, folder / "response_model.joblib")
+    if bundle.response_model_no_history is not None:
+        joblib.dump(bundle.response_model_no_history, folder / NO_HISTORY_FILE)
     (folder / "report.json").write_text(json.dumps(bundle.report, indent=2), encoding="utf-8")
     (root / LATEST).write_text(bundle.version, encoding="utf-8")
     return folder
@@ -72,4 +77,5 @@ def load(root: Path, version: str = "") -> Bundle:
         projection=joblib.load(folder / "projection.joblib"),
         response_model=joblib.load(folder / "response_model.joblib"),
         report=json.loads((folder / "report.json").read_text(encoding="utf-8")),
+        response_model_no_history=joblib.load(folder / NO_HISTORY_FILE) if (folder / NO_HISTORY_FILE).exists() else None,
     )

@@ -112,6 +112,10 @@ RESPONSE_FEATURES = [
     "complain",
 ]
 
+# Campaign-history columns. Many customer files do not have them, so a second model is trained without them.
+HISTORY_FEATURES = [*[c.lower() for c in PRIOR_CAMPAIGNS], "prior_accepts"]
+BEHAVIOUR_FEATURES = [f for f in RESPONSE_FEATURES if f not in HISTORY_FEATURES]
+
 FEATURE_LABELS = {
     "income": "Household income",
     "age": "Age",

@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     llm_timeout_s: float = 30.0
 
     # API
+    frontend_dist: Path = Path("frontend/dist")  # built web app served at / when present
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
     @property

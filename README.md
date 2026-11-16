@@ -2,6 +2,8 @@
 
 Upload a retail customer list and get back segments, a ranked target list for your next campaign, the reasons behind every score, and the expected profit of contacting the top of the list.
 
+**Live demo: [customer-segmentation-lac.vercel.app](https://customer-segmentation-lac.vercel.app)** (open Analyze and click "Try with sample data")
+
 Recreated on public data: the models are trained on the Kaggle [Customer Personality Analysis](https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis) dataset (2,236 customers of a grocery and wine retailer). It rebuilds, with a stronger evaluation, a segmentation project I did during a data science internship whose original code is no longer available.
 
 ![Overview](docs/screenshots/overview.jpg)

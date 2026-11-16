@@ -1,0 +1,1329 @@
+{
+  "meta": {
+    "run_at": "2026-11-16T15:30:44",
+    "artifact_version": "20261114-003713",
+    "data_path": "data\\raw\\marketing_campaign.csv",
+    "customers": 2236,
+    "responders": 334,
+    "train_size": 1788,
+    "test_size": 448,
+    "random_state": 42,
+    "cost_per_contact": 3.0,
+    "revenue_per_response": 11.0,
+    "response_features": 29,
+    "environment": {
+      "python": "3.12.10",
+      "platform": "Windows-10-10.0.19045-SP0",
+      "processor": "Intel64 Family 6 Model 69 Stepping 1, GenuineIntel",
+      "cpu_count": 4,
+      "packages": {
+        "numpy": "2.5.4",
+        "pandas": "3.1.1",
+        "scikit-learn": "1.9.1",
+        "xgboost": "3.4.1",
+        "fastapi": "0.162.6"
+      }
+    },
+    "section_seconds": {
+      "evaluation": 15.108464799999979,
+      "performance": 20.496638899999994,
+      "testing": 16.7045339,
+      "benchmarking": 120.6316038
+    },
+    "total_seconds": 177.03065590000006
+  },
+  "evaluation": {
+    "response_model": {
+      "ranking": {
+        "n": 448,
+        "positives": 67,
+        "base_rate": 0.14955357142857142,
+        "roc_auc": 0.922709288204646,
+        "pr_auc": 0.7043740660133175,
+        "log_loss": 0.23948729038238525,
+        "log_loss_base_rate": 0.4219341278076172,
+        "brier": 0.07368709146976471,
+        "brier_base_rate": 0.1271873414516449,
+        "brier_skill_score": 0.42064131045793063,
+        "roc_auc_ci95": [
+          0.8837260547655424,
+          0.9536309593763466
+        ],
+        "pr_auc_ci95": [
+          0.6101053337699737,
+          0.7957786073483691
+        ]
+      },
+      "thresholds": {
+        "default_0.5": {
+          "threshold": 0.5,
+          "flagged_share": 0.09375,
+          "accuracy": 0.8995535714285714,
+          "balanced_accuracy": 0.7256826105692012,
+          "precision": 0.7619047619047619,
+          "recall": 0.47761194029850745,
+          "f1": 0.5871559633027523,
+          "mcc": 0.5522558432627221,
+          "confusion": {
+            "tn": 371,
+            "fp": 10,
+            "fn": 35,
+            "tp": 32
+          }
+        },
+        "best_f1_on_train": {
+          "threshold": 0.24199999868869781,
+          "flagged_share": 0.18526785714285715,
+          "accuracy": 0.8883928571428571,
+          "balanced_accuracy": 0.8298272417440358,
+          "precision": 0.6024096385542169,
+          "recall": 0.746268656716418,
+          "f1": 0.6666666666666666,
+          "mcc": 0.6055233979716977,
+          "confusion": {
+            "tn": 348,
+            "fp": 33,
+            "fn": 17,
+            "tp": 50
+          }
+        },
+        "best_profit_on_train": {
+          "threshold": 0.24199999868869781,
+          "flagged_share": 0.18526785714285715,
+          "accuracy": 0.8883928571428571,
+          "balanced_accuracy": 0.8298272417440358,
+          "precision": 0.6024096385542169,
+          "recall": 0.746268656716418,
+          "f1": 0.6666666666666666,
+          "mcc": 0.6055233979716977,
+          "confusion": {
+            "tn": 348,
+            "fp": 33,
+            "fn": 17,
+            "tp": 50
+          }
+        },
+        "break_even": {
+          "threshold": 0.2727272727272727,
+          "flagged_share": 0.16071428571428573,
+          "accuracy": 0.8861607142857143,
+          "balanced_accuracy": 0.7916128021310769,
+          "precision": 0.6111111111111112,
+          "recall": 0.6567164179104478,
+          "f1": 0.6330935251798561,
+          "mcc": 0.5663387791294394,
+          "confusion": {
+            "tn": 353,
+            "fp": 28,
+            "fn": 23,
+            "tp": 44
+          }
+        }
+      },
+      "artifact_report_holdout_roc_auc": 0.922709288204646
+    },
+    "segmentation": {
+      "k": 3,
+      "silhouette": 0.17721111338201984,
+      "davies_bouldin": 1.760344772198085,
+      "calinski_harabasz": 632.572720766255,
+      "sizes": [
+        863,
+        622,
+        751
+      ],
+      "smallest_share": 0.278175313059034,
+      "k_selection": {
+        "scores": [
+          {
+            "k": 2,
+            "inertia": 25917.959122417036,
+            "silhouette": 0.24710363623461587,
+            "davies_bouldin": 1.562877885247014
+          },
+          {
+            "k": 3,
+            "inertia": 22837.21716507979,
+            "silhouette": 0.17721111338237752,
+            "davies_bouldin": 1.760344772198085
+          },
+          {
+            "k": 4,
+            "inertia": 21175.41856609791,
+            "silhouette": 0.15603280489098237,
+            "davies_bouldin": 1.9954393665880616
+          },
+          {
+            "k": 5,
+            "inertia": 20038.96363824531,
+            "silhouette": 0.1359485338005214,
+            "davies_bouldin": 2.0303176954344555
+          },
+          {
+            "k": 6,
+            "inertia": 19296.0412710999,
+            "silhouette": 0.12412495045280178,
+            "davies_bouldin": 2.1068489702674307
+          },
+          {
+            "k": 7,
+            "inertia": 18599.29159144543,
+            "silhouette": 0.12233850797454518,
+            "davies_bouldin": 2.140167161466898
+          },
+          {
+            "k": 8,
+            "inertia": 18086.273759150066,
+            "silhouette": 0.11084637941786575,
+            "davies_bouldin": 2.2275530359235134
+          }
+        ],
+        "chosen_k": 3,
+        "elbow_k": 3,
+        "rule": "best silhouette among k >= 3"
+      }
+    }
+  },
+  "performance": {
+    "targeting": {
+      "method": "out-of-fold scores, stratified 5-fold over all customers",
+      "customers": 2236,
+      "base_rate": 0.14937388193202147,
+      "oof_roc_auc": 0.9213819994081238,
+      "oof_pr_auc": 0.7016516619511459,
+      "ks_statistic": 0.7066497802734375,
+      "deciles": [
+        {
+          "decile": 1,
+          "customers": 224,
+          "responders": 162,
+          "response_rate": 0.7232142857142857,
+          "lift": 4.841638152266895,
+          "cumulative_capture": 0.48502994011976047
+        },
+        {
+          "decile": 2,
+          "customers": 224,
+          "responders": 92,
+          "response_rate": 0.4107142857142857,
+          "lift": 2.7495722840034214,
+          "cumulative_capture": 0.7604790419161677
+        },
+        {
+          "decile": 3,
+          "customers": 224,
+          "responders": 46,
+          "response_rate": 0.20535714285714285,
+          "lift": 1.3747861420017107,
+          "cumulative_capture": 0.8982035928143712
+        },
+        {
+          "decile": 4,
+          "customers": 224,
+          "responders": 15,
+          "response_rate": 0.06696428571428571,
+          "lift": 0.4482998289136013,
+          "cumulative_capture": 0.9431137724550899
+        },
+        {
+          "decile": 5,
+          "customers": 224,
+          "responders": 12,
+          "response_rate": 0.05357142857142857,
+          "lift": 0.35863986313088103,
+          "cumulative_capture": 0.9790419161676647
+        },
+        {
+          "decile": 6,
+          "customers": 224,
+          "responders": 3,
+          "response_rate": 0.013392857142857142,
+          "lift": 0.08965996578272026,
+          "cumulative_capture": 0.9880239520958084
+        },
+        {
+          "decile": 7,
+          "customers": 223,
+          "responders": 2,
+          "response_rate": 0.008968609865470852,
+          "lift": 0.06004135227303241,
+          "cumulative_capture": 0.9940119760479041
+        },
+        {
+          "decile": 8,
+          "customers": 223,
+          "responders": 0,
+          "response_rate": 0.0,
+          "lift": 0.0,
+          "cumulative_capture": 0.9940119760479041
+        },
+        {
+          "decile": 9,
+          "customers": 223,
+          "responders": 1,
+          "response_rate": 0.004484304932735426,
+          "lift": 0.030020676136516204,
+          "cumulative_capture": 0.9970059880239521
+        },
+        {
+          "decile": 10,
+          "customers": 223,
+          "responders": 1,
+          "response_rate": 0.004484304932735426,
+          "lift": 0.030020676136516204,
+          "cumulative_capture": 1.0
+        }
+      ],
+      "curve": [
+        {
+          "share_targeted": 0.05,
+          "customers": 112,
+          "responders": 97,
+          "response_rate": 0.8660714285714286,
+          "lift": 5.798011120615911,
+          "capture": 0.2904191616766467,
+          "profit": 731.0
+        },
+        {
+          "share_targeted": 0.1,
+          "customers": 224,
+          "responders": 162,
+          "response_rate": 0.7232142857142857,
+          "lift": 4.841638152266895,
+          "capture": 0.48502994011976047,
+          "profit": 1110.0
+        },
+        {
+          "share_targeted": 0.15,
+          "customers": 335,
+          "responders": 207,
+          "response_rate": 0.6179104477611941,
+          "lift": 4.1366699436947005,
+          "capture": 0.6197604790419161,
+          "profit": 1272.0
+        },
+        {
+          "share_targeted": 0.2,
+          "customers": 447,
+          "responders": 254,
+          "response_rate": 0.5682326621923938,
+          "lift": 3.804096504976624,
+          "capture": 0.7604790419161677,
+          "profit": 1453.0
+        },
+        {
+          "share_targeted": 0.25,
+          "customers": 559,
+          "responders": 280,
+          "response_rate": 0.5008944543828264,
+          "lift": 3.353293413173652,
+          "capture": 0.8383233532934131,
+          "profit": 1403.0
+        },
+        {
+          "share_targeted": 0.3,
+          "customers": 671,
+          "responders": 299,
+          "response_rate": 0.4456035767511177,
+          "lift": 2.983142507830836,
+          "capture": 0.8952095808383234,
+          "profit": 1276.0
+        },
+        {
+          "share_targeted": 0.35,
+          "customers": 783,
+          "responders": 308,
+          "response_rate": 0.3933588761174968,
+          "lift": 2.6333845718524636,
+          "capture": 0.9221556886227545,
+          "profit": 1039.0
+        },
+        {
+          "share_targeted": 0.4,
+          "customers": 894,
+          "responders": 315,
+          "response_rate": 0.3523489932885906,
+          "lift": 2.358839368243379,
+          "capture": 0.9431137724550899,
+          "profit": 783.0
+        },
+        {
+          "share_targeted": 0.45,
+          "customers": 1006,
+          "responders": 325,
+          "response_rate": 0.3230616302186879,
+          "lift": 2.1627718717634314,
+          "capture": 0.9730538922155688,
+          "profit": 557.0
+        },
+        {
+          "share_targeted": 0.5,
+          "customers": 1118,
+          "responders": 327,
+          "response_rate": 0.2924865831842576,
+          "lift": 1.9580838323353291,
+          "capture": 0.9790419161676647,
+          "profit": 243.0
+        },
+        {
+          "share_targeted": 0.55,
+          "customers": 1230,
+          "responders": 328,
+          "response_rate": 0.26666666666666666,
+          "lift": 1.7852295409181635,
+          "capture": 0.9820359281437125,
+          "profit": -82.0
+        },
+        {
+          "share_targeted": 0.6,
+          "customers": 1342,
+          "responders": 330,
+          "response_rate": 0.2459016393442623,
+          "lift": 1.6462157651909295,
+          "capture": 0.9880239520958084,
+          "profit": -396.0
+        },
+        {
+          "share_targeted": 0.65,
+          "customers": 1453,
+          "responders": 332,
+          "response_rate": 0.22849277357192016,
+          "lift": 1.5296701847509384,
+          "capture": 0.9940119760479041,
+          "profit": -707.0
+        },
+        {
+          "share_targeted": 0.7,
+          "customers": 1565,
+          "responders": 332,
+          "response_rate": 0.21214057507987222,
+          "lift": 1.4201985804748332,
+          "capture": 0.9940119760479041,
+          "profit": -1043.0
+        },
+        {
+          "share_targeted": 0.75,
+          "customers": 1677,
+          "responders": 332,
+          "response_rate": 0.19797257006559332,
+          "lift": 1.3253493013972055,
+          "capture": 0.9940119760479041,
+          "profit": -1379.0
+        },
+        {
+          "share_targeted": 0.8,
+          "customers": 1789,
+          "responders": 332,
+          "response_rate": 0.18557853549468978,
+          "lift": 1.2423760639704382,
+          "capture": 0.9940119760479041,
+          "profit": -1715.0
+        },
+        {
+          "share_targeted": 0.85,
+          "customers": 1901,
+          "responders": 332,
+          "response_rate": 0.1746449237243556,
+          "lift": 1.1691797887654465,
+          "capture": 0.9940119760479041,
+          "profit": -2051.0
+        },
+        {
+          "share_targeted": 0.9,
+          "customers": 2012,
+          "responders": 333,
+          "response_rate": 0.16550695825049702,
+          "lift": 1.1080046666111119,
+          "capture": 0.9970059880239521,
+          "profit": -2373.0
+        },
+        {
+          "share_targeted": 0.95,
+          "customers": 2124,
+          "responders": 334,
+          "response_rate": 0.15725047080979285,
+          "lift": 1.0527306967984933,
+          "capture": 1.0,
+          "profit": -2698.0
+        },
+        {
+          "share_targeted": 1.0,
+          "customers": 2236,
+          "responders": 334,
+          "response_rate": 0.14937388193202147,
+          "lift": 1.0,
+          "capture": 1.0,
+          "profit": -3034.0
+        }
+      ],
+      "best_profit_point": {
+        "share_targeted": 0.2,
+        "customers": 447,
+        "responders": 254,
+        "response_rate": 0.5682326621923938,
+        "lift": 3.804096504976624,
+        "capture": 0.7604790419161677,
+        "profit": 1453.0
+      },
+      "contact_everyone": {
+        "share_targeted": 1.0,
+        "customers": 2236,
+        "responders": 334,
+        "response_rate": 0.14937388193202147,
+        "lift": 1.0,
+        "capture": 1.0,
+        "profit": -3034.0
+      },
+      "top10_lift_ci95": [
+        4.446571844646949,
+        5.258816924916528
+      ],
+      "top20_lift_ci95": [
+        3.597105855155457,
+        4.017427903394767
+      ]
+    },
+    "calibration": {
+      "expected_calibration_error": 0.026943625763254073,
+      "brier": 0.07368709146976471,
+      "mean_predicted": 0.13101159036159515,
+      "observed_rate": 0.14955357142857142,
+      "bins": [
+        {
+          "mean_predicted": 0.0012409056071192026,
+          "observed_rate": 0.0,
+          "count": 45
+        },
+        {
+          "mean_predicted": 0.0027953870594501495,
+          "observed_rate": 0.022222222222222223,
+          "count": 45
+        },
+        {
+          "mean_predicted": 0.006229356396943331,
+          "observed_rate": 0.0,
+          "count": 45
+        },
+        {
+          "mean_predicted": 0.011335114948451519,
+          "observed_rate": 0.0,
+          "count": 45
+        },
+        {
+          "mean_predicted": 0.01970943622291088,
+          "observed_rate": 0.022222222222222223,
+          "count": 45
+        },
+        {
+          "mean_predicted": 0.03638407215476036,
+          "observed_rate": 0.044444444444444446,
+          "count": 45
+        },
+        {
+          "mean_predicted": 0.06746061146259308,
+          "observed_rate": 0.044444444444444446,
+          "count": 45
+        },
+        {
+          "mean_predicted": 0.15015459060668945,
+          "observed_rate": 0.2222222222222222,
+          "count": 45
+        },
+        {
+          "mean_predicted": 0.31239598989486694,
+          "observed_rate": 0.4090909090909091,
+          "count": 44
+        },
+        {
+          "mean_predicted": 0.7195191979408264,
+          "observed_rate": 0.75,
+          "count": 44
+        }
+      ]
+    },
+    "stability": {
+      "scheme": "5x5 repeated stratified K-fold, all customers",
+      "fits": 25,
+      "roc_auc": {
+        "mean": 0.9216236519495979,
+        "std": 0.011170768211439178,
+        "min": 0.8899057344854674,
+        "max": 0.9478591295491049
+      },
+      "pr_auc": {
+        "mean": 0.7117097446906604,
+        "std": 0.03840774058737862,
+        "min": 0.6371398097400828,
+        "max": 0.7805262125733593
+      },
+      "top10_lift": {
+        "mean": 4.8680295492235794,
+        "std": 0.3460945105895395,
+        "min": 4.29950248756219,
+        "max": 5.349253731343284
+      }
+    },
+    "segment_targeting": {
+      "method": "segments ranked on the training split, measured on the test split",
+      "test_base_rate": 0.14955357142857142,
+      "rows": [
+        {
+          "segments": [
+            1
+          ],
+          "names": [
+            "Affluent catalog buyers"
+          ],
+          "customers": 132,
+          "share_targeted": 0.29464285714285715,
+          "response_rate": 0.26515151515151514,
+          "lift": 1.7729534147444594,
+          "capture": 0.5223880597014925
+        },
+        {
+          "segments": [
+            1,
+            2
+          ],
+          "names": [
+            "Affluent catalog buyers",
+            "Wine enthusiasts"
+          ],
+          "customers": 275,
+          "share_targeted": 0.6138392857142857,
+          "response_rate": 0.19272727272727272,
+          "lift": 1.288683853459973,
+          "capture": 0.7910447761194029
+        },
+        {
+          "segments": [
+            1,
+            2,
+            0
+          ],
+          "names": [
+            "Affluent catalog buyers",
+            "Wine enthusiasts",
+            "Budget browsers"
+          ],
+          "customers": 448,
+          "share_targeted": 1.0,
+          "response_rate": 0.14955357142857142,
+          "lift": 1.0,
+          "capture": 1.0
+        }
+      ],
+      "per_segment_all_customers": [
+        {
+          "segment_id": 1,
+          "name": "Affluent catalog buyers",
+          "customers": 622,
+          "response_rate": 0.2459807073954984,
+          "lift": 1.6467450950189653
+        },
+        {
+          "segment_id": 2,
+          "name": "Wine enthusiasts",
+          "customers": 751,
+          "response_rate": 0.13715046604527298,
+          "lift": 0.9181689882551808
+        },
+        {
+          "segment_id": 0,
+          "name": "Budget browsers",
+          "customers": 863,
+          "response_rate": 0.09038238702201622,
+          "lift": 0.6050749023390067
+        }
+      ]
+    },
+    "claim_check": {
+      "claim": "20% lift in targeted campaign conversion",
+      "required_lift": 1.2,
+      "segment_only_lift": 1.7729534147444594,
+      "segment_only_supported": true,
+      "model_top20_lift": 3.804096504976624,
+      "model_top20_lift_ci95_low": 3.597105855155457,
+      "model_supported": true,
+      "caveat": "Measured on public data as a rebuild; it does not reproduce the original company's campaign."
+    }
+  },
+  "testing": {
+    "reproducibility": {
+      "same_seed_max_abs_diff": 0.0,
+      "artifact_vs_retrain_max_abs_diff": 0.0
+    },
+    "label_shuffle": {
+      "repeats": 5,
+      "mean_roc_auc": 0.5232028832216868,
+      "max_abs_dev_from_0.5": 0.049144043561718975
+    },
+    "noise_robustness": {
+      "noise_scale_of_std": 0.05,
+      "continuous_features": 18,
+      "spearman": 0.9904532062034695,
+      "mean_abs_prob_change": 0.015621616505086422,
+      "top_decile_overlap": 0.9333333333333333,
+      "noisy_roc_auc": 0.9146394014181063
+    },
+    "directional": {
+      "extra_prior_acceptance": {
+        "customers": 448,
+        "share_increased": 0.9977678571428571,
+        "share_not_decreased": 1.0,
+        "mean_change": 0.15511645376682281
+      },
+      "recency_plus_30_days": {
+        "customers": 448,
+        "share_decreased": 0.9040178571428571,
+        "share_not_increased": 0.9575892857142857,
+        "mean_change": -0.05015651136636734
+      }
+    },
+    "batch_invariance": {
+      "batch_vs_single_max_abs_diff": 0.0,
+      "row_order_max_abs_diff": 0.0
+    },
+    "shap_additivity": {
+      "max_abs_error_logit": 5.245208740234375e-06
+    },
+    "edge_inputs": {
+      "cases": {
+        "median_customer": {
+          "ok": true,
+          "probability": 0.007102455012500286,
+          "segment": "Wine enthusiasts"
+        },
+        "no_spend_no_purchases": {
+          "ok": true,
+          "probability": 0.005241232458502054,
+          "segment": "Budget browsers"
+        },
+        "very_high_spender": {
+          "ok": true,
+          "probability": 0.026074642315506935,
+          "segment": "Affluent catalog buyers"
+        },
+        "accepted_all_campaigns": {
+          "ok": true,
+          "probability": 0.905548095703125,
+          "segment": "Wine enthusiasts"
+        },
+        "brand_new_customer": {
+          "ok": true,
+          "probability": 0.02977115660905838,
+          "segment": "Wine enthusiasts"
+        },
+        "oldest_allowed_birth_year": {
+          "ok": true,
+          "probability": 0.008545470423996449,
+          "segment": "Wine enthusiasts"
+        }
+      },
+      "all_ok": true
+    },
+    "segmentation_stability": {
+      "k": 3,
+      "seed_ari_mean": 0.9930864087629209,
+      "seed_ari_min": 0.9852994475393694,
+      "subsample_ari_mean": 0.9732906017433848,
+      "subsample_ari_min": 0.916941131126677,
+      "subsample_share": 0.8
+    },
+    "slices": {
+      "groups": {
+        "age": [
+          {
+            "group": "40 to 54",
+            "customers": 892,
+            "responders": 129,
+            "response_rate": 0.1446188340807175,
+            "mean_predicted": 0.13170714676380157,
+            "roc_auc": 0.9138955774330215
+          },
+          {
+            "group": "55 to 69",
+            "customers": 551,
+            "responders": 81,
+            "response_rate": 0.147005444646098,
+            "mean_predicted": 0.1347499042749405,
+            "roc_auc": 0.9242448121880745
+          },
+          {
+            "group": "70 plus",
+            "customers": 16,
+            "responders": 4,
+            "response_rate": 0.25,
+            "mean_predicted": 0.22803336381912231,
+            "roc_auc": null
+          },
+          {
+            "group": "under 40",
+            "customers": 777,
+            "responders": 120,
+            "response_rate": 0.15444015444015444,
+            "mean_predicted": 0.1505739688873291,
+            "roc_auc": 0.9301306443429731
+          }
+        ],
+        "income": [
+          {
+            "group": "lower third",
+            "customers": 746,
+            "responders": 86,
+            "response_rate": 0.11528150134048257,
+            "mean_predicted": 0.10380817949771881,
+            "roc_auc": 0.920375264270613
+          },
+          {
+            "group": "middle third",
+            "customers": 745,
+            "responders": 75,
+            "response_rate": 0.10067114093959731,
+            "mean_predicted": 0.0941879153251648,
+            "roc_auc": 0.9099402985074627
+          },
+          {
+            "group": "upper third",
+            "customers": 745,
+            "responders": 173,
+            "response_rate": 0.23221476510067113,
+            "mean_predicted": 0.2211591750383377,
+            "roc_auc": 0.9179079590929301
+          }
+        ],
+        "education": [
+          {
+            "group": "Graduate",
+            "customers": 1126,
+            "responders": 152,
+            "response_rate": 0.1349911190053286,
+            "mean_predicted": 0.12783949077129364,
+            "roc_auc": 0.9225757862314925
+          },
+          {
+            "group": "Postgraduate",
+            "customers": 855,
+            "responders": 158,
+            "response_rate": 0.1847953216374269,
+            "mean_predicted": 0.1664927452802658,
+            "roc_auc": 0.9181755443764414
+          },
+          {
+            "group": "Undergraduate",
+            "customers": 255,
+            "responders": 24,
+            "response_rate": 0.09411764705882353,
+            "mean_predicted": 0.10225857049226761,
+            "roc_auc": 0.9184704184704185
+          }
+        ],
+        "household": [
+          {
+            "group": "Partnered",
+            "customers": 1442,
+            "responders": 158,
+            "response_rate": 0.10957004160887657,
+            "mean_predicted": 0.10576675087213516,
+            "roc_auc": 0.912112070665247
+          },
+          {
+            "group": "Single",
+            "customers": 794,
+            "responders": 176,
+            "response_rate": 0.2216624685138539,
+            "mean_predicted": 0.20133353769779205,
+            "roc_auc": 0.9232081126802001
+          }
+        ],
+        "segment": [
+          {
+            "group": "Affluent catalog buyers",
+            "customers": 622,
+            "responders": 153,
+            "response_rate": 0.2459807073954984,
+            "mean_predicted": 0.23237845301628113,
+            "roc_auc": 0.9229413158298145
+          },
+          {
+            "group": "Budget browsers",
+            "customers": 863,
+            "responders": 78,
+            "response_rate": 0.09038238702201622,
+            "mean_predicted": 0.08045430481433868,
+            "roc_auc": 0.9227094561489466
+          },
+          {
+            "group": "Wine enthusiasts",
+            "customers": 751,
+            "responders": 103,
+            "response_rate": 0.13715046604527298,
+            "mean_predicted": 0.13102932274341583,
+            "roc_auc": 0.8998336929162172
+          }
+        ]
+      },
+      "min_slice_roc_auc": 0.8998336929162172,
+      "max_slice_roc_auc": 0.9301306443429731
+    }
+  },
+  "benchmarking": {
+    "models": {
+      "scheme": "3x5 repeated stratified K-fold, all customers",
+      "folds": 15,
+      "rows": [
+        {
+          "model": "XGBoost (shipped)",
+          "roc_auc_mean": 0.9200597970017965,
+          "roc_auc_std": 0.012989243201328856,
+          "pr_auc_mean": 0.7072579395422468,
+          "top10_lift_mean": 4.860775918387859,
+          "fit_seconds_mean": 0.672757759999998,
+          "predict_ms_per_1k_rows": 16.267591715928592,
+          "shipped_minus_this_auc": 0.0,
+          "shipped_wins_folds": 0
+        },
+        {
+          "model": "Hist gradient boosting",
+          "roc_auc_mean": 0.913853808604568,
+          "roc_auc_std": 0.014121135085770536,
+          "pr_auc_mean": 0.6818525406236267,
+          "top10_lift_mean": 4.790751294034877,
+          "fit_seconds_mean": 1.181505640000008,
+          "predict_ms_per_1k_rows": 31.57902481488044,
+          "shipped_minus_this_auc": 0.00620598839722862,
+          "shipped_wins_folds": 14
+        },
+        {
+          "model": "Logistic regression",
+          "roc_auc_mean": 0.9089963078569568,
+          "roc_auc_std": 0.0173404774752629,
+          "pr_auc_mean": 0.6704498083352649,
+          "top10_lift_mean": 4.8297542590079905,
+          "fit_seconds_mean": 0.026978539999997036,
+          "predict_ms_per_1k_rows": 6.760746411246627,
+          "shipped_minus_this_auc": 0.011063489144839537,
+          "shipped_wins_folds": 11
+        },
+        {
+          "model": "Random forest",
+          "roc_auc_mean": 0.9047325273193239,
+          "roc_auc_std": 0.017041461909620085,
+          "pr_auc_mean": 0.6612657960415554,
+          "top10_lift_mean": 4.573283079551738,
+          "fit_seconds_mean": 1.8592769133333378,
+          "predict_ms_per_1k_rows": 165.9859206215838,
+          "shipped_minus_this_auc": 0.01532726968247254,
+          "shipped_wins_folds": 15
+        },
+        {
+          "model": "Rule: past acceptances + recency",
+          "roc_auc_mean": 0.8004675497920112,
+          "roc_auc_std": 0.025639290217808888,
+          "pr_auc_mean": 0.5184532017923705,
+          "top10_lift_mean": 4.025958088346149,
+          "fit_seconds_mean": 0.0006584066666694828,
+          "predict_ms_per_1k_rows": 2.2879082774141977,
+          "shipped_minus_this_auc": 0.11959224720978527,
+          "shipped_wins_folds": 15
+        },
+        {
+          "model": "Rule: RFM score",
+          "roc_auc_mean": 0.7225615977970141,
+          "roc_auc_std": 0.02601687827813354,
+          "pr_auc_mean": 0.3179185792929957,
+          "top10_lift_mean": 2.4695381677471233,
+          "fit_seconds_mean": 0.0008317399999972015,
+          "predict_ms_per_1k_rows": 6.716647424643232,
+          "shipped_minus_this_auc": 0.19749819920478232,
+          "shipped_wins_folds": 15
+        },
+        {
+          "model": "Dummy (base rate)",
+          "roc_auc_mean": 0.5,
+          "roc_auc_std": 0.0,
+          "pr_auc_mean": 0.14937380153403643,
+          "top10_lift_mean": 0.9730428664757025,
+          "fit_seconds_mean": 0.002108020000006642,
+          "predict_ms_per_1k_rows": 1.2093591869099996,
+          "shipped_minus_this_auc": 0.4200597970017964,
+          "shipped_wins_folds": 15
+        }
+      ]
+    },
+    "compute": {
+      "training_pipeline_seconds": 17.151664299999993,
+      "single_customer_score": {
+        "calls": 300,
+        "p50_ms": 52.71199999998544,
+        "p95_ms": 72.642809999968,
+        "p99_ms": 112.20283099995017,
+        "mean_ms": 55.90851299999789,
+        "breakdown_p50_ms": {
+          "input_to_frame": 0.7021999999778927,
+          "feature_engineering": 15.451149999989866,
+          "segment_assignment": 3.9193000000068423,
+          "response_probability": 3.6013000000139073,
+          "shap_explanation": 8.807199999978366
+        }
+      },
+      "batch_scoring": {
+        "rows": 22360,
+        "seconds": 0.1627889999999752,
+        "rows_per_second": 137355.71813822436
+      },
+      "api_latency_in_process": {
+        "GET /api/health": {
+          "calls": 200,
+          "p50_ms": 6.353250000017852,
+          "p95_ms": 7.600949999982731,
+          "p99_ms": 8.522938000010068,
+          "mean_ms": 6.452071500000329
+        },
+        "GET /api/overview": {
+          "calls": 200,
+          "p50_ms": 6.867100000022219,
+          "p95_ms": 8.165279999934683,
+          "p99_ms": 10.199917999923382,
+          "mean_ms": 6.999165500000686
+        },
+        "GET /api/lift": {
+          "calls": 200,
+          "p50_ms": 7.482649999985824,
+          "p95_ms": 9.046865000038906,
+          "p99_ms": 10.43620600000508,
+          "mean_ms": 7.988249500000961
+        },
+        "POST /api/score": {
+          "calls": 200,
+          "p50_ms": 58.32580000003418,
+          "p95_ms": 66.76848500001142,
+          "p99_ms": 69.35417900001988,
+          "mean_ms": 59.74070649999759
+        }
+      },
+      "artifact_version": "20261114-003713",
+      "artifact_bytes": {
+        "projection.joblib": 1383,
+        "report.json": 291929,
+        "response_model.joblib": 346287,
+        "response_model_no_history.joblib": 344559,
+        "segmenter.joblib": 11193
+      },
+      "artifact_total_kb": 972.0224609375,
+      "notes": "Latency is in-process (FastAPI TestClient), single thread, no network; real deployments add transport time."
+    }
+  },
+  "assessment": {
+    "derived": {
+      "pr_auc_over_base": 4.709844501103974,
+      "profit_gain": 4487.0,
+      "edge_ok": 1.0,
+      "gap_vs_best_rule": 0.11959224720978534,
+      "gap_to_best_model": 0.0
+    },
+    "scorecard": [
+      {
+        "id": "E1",
+        "area": "Evaluation",
+        "check": "Holdout ROC AUC",
+        "value": 0.922709288204646,
+        "op": ">=",
+        "threshold": 0.85,
+        "passed": true,
+        "why": "Strong ranking of responders on unseen customers"
+      },
+      {
+        "id": "E2",
+        "area": "Evaluation",
+        "check": "Holdout ROC AUC, lower 95% bound",
+        "value": 0.8837260547655424,
+        "op": ">=",
+        "threshold": 0.8,
+        "passed": true,
+        "why": "Good ranking even at the pessimistic end of the interval"
+      },
+      {
+        "id": "E3",
+        "area": "Evaluation",
+        "check": "Holdout PR AUC as a multiple of the base rate",
+        "value": 4.709844501103974,
+        "op": ">=",
+        "threshold": 3.0,
+        "passed": true,
+        "why": "Precision far above random on a 15% positive class"
+      },
+      {
+        "id": "E4",
+        "area": "Evaluation",
+        "check": "Brier skill score vs predicting the base rate",
+        "value": 0.42064131045793063,
+        "op": ">=",
+        "threshold": 0.2,
+        "passed": true,
+        "why": "Probabilities carry real information"
+      },
+      {
+        "id": "E5",
+        "area": "Evaluation",
+        "check": "Segmentation silhouette",
+        "value": 0.17721111338201984,
+        "op": ">=",
+        "threshold": 0.1,
+        "passed": true,
+        "why": "Segments are separated, not arbitrary slices"
+      },
+      {
+        "id": "E6",
+        "area": "Evaluation",
+        "check": "Smallest segment share",
+        "value": 0.278175313059034,
+        "op": ">=",
+        "threshold": 0.1,
+        "passed": true,
+        "why": "Every segment is big enough to run a campaign on"
+      },
+      {
+        "id": "P1",
+        "area": "Performance",
+        "check": "Top-10% lift, lower 95% bound",
+        "value": 4.446571844646949,
+        "op": ">=",
+        "threshold": 3.0,
+        "passed": true,
+        "why": "Targeting the top decile clearly beats contacting everyone"
+      },
+      {
+        "id": "P2",
+        "area": "Performance",
+        "check": "Best campaign profit vs contacting everyone ($)",
+        "value": 4487.0,
+        "op": ">=",
+        "threshold": 0.0,
+        "passed": true,
+        "why": "Model-led targeting pays for itself"
+      },
+      {
+        "id": "P3",
+        "area": "Performance",
+        "check": "Expected calibration error (holdout)",
+        "value": 0.026943625763254073,
+        "op": "<=",
+        "threshold": 0.05,
+        "passed": true,
+        "why": "Scores can be read as response rates"
+      },
+      {
+        "id": "P4",
+        "area": "Performance",
+        "check": "Std of ROC AUC over 25 repeated-CV fits",
+        "value": 0.011170768211439178,
+        "op": "<=",
+        "threshold": 0.03,
+        "passed": true,
+        "why": "Performance does not hinge on a lucky split"
+      },
+      {
+        "id": "P5",
+        "area": "Performance",
+        "check": "Best segment lift on the test split",
+        "value": 1.7729534147444594,
+        "op": ">=",
+        "threshold": 1.2,
+        "passed": true,
+        "why": "Segments alone deliver at least a 20% lift"
+      },
+      {
+        "id": "T1",
+        "area": "Testing",
+        "check": "Same-seed retrain, max prediction difference",
+        "value": 0.0,
+        "op": "<=",
+        "threshold": 1e-09,
+        "passed": true,
+        "why": "Training is deterministic"
+      },
+      {
+        "id": "T2",
+        "area": "Testing",
+        "check": "Shipped artifact vs fresh retrain, max difference",
+        "value": 0.0,
+        "op": "<=",
+        "threshold": 1e-06,
+        "passed": true,
+        "why": "The served model is exactly the evaluated one"
+      },
+      {
+        "id": "T3",
+        "area": "Testing",
+        "check": "Label-shuffle AUC, max distance from 0.5",
+        "value": 0.049144043561718975,
+        "op": "<=",
+        "threshold": 0.08,
+        "passed": true,
+        "why": "No leakage: the model learns nothing from shuffled labels"
+      },
+      {
+        "id": "T4",
+        "area": "Testing",
+        "check": "Rank correlation under 5% feature noise",
+        "value": 0.9904532062034695,
+        "op": ">=",
+        "threshold": 0.95,
+        "passed": true,
+        "why": "Small measurement noise does not reshuffle the target list"
+      },
+      {
+        "id": "T5",
+        "area": "Testing",
+        "check": "Share where an extra past acceptance does not lower the score",
+        "value": 1.0,
+        "op": ">=",
+        "threshold": 0.9,
+        "passed": true,
+        "why": "Behaves as marketing expects"
+      },
+      {
+        "id": "T6",
+        "area": "Testing",
+        "check": "Share where 30 more days of inactivity does not raise the score",
+        "value": 0.9575892857142857,
+        "op": ">=",
+        "threshold": 0.8,
+        "passed": true,
+        "why": "Lapsing customers are scored lower"
+      },
+      {
+        "id": "T7",
+        "area": "Testing",
+        "check": "Batch vs single-row scoring, max difference",
+        "value": 0.0,
+        "op": "<=",
+        "threshold": 1e-09,
+        "passed": true,
+        "why": "API single scores match batch scores"
+      },
+      {
+        "id": "T8",
+        "area": "Testing",
+        "check": "SHAP additivity error (logit)",
+        "value": 5.245208740234375e-06,
+        "op": "<=",
+        "threshold": 0.001,
+        "passed": true,
+        "why": "Explanations add up to the prediction"
+      },
+      {
+        "id": "T9",
+        "area": "Testing",
+        "check": "Edge-case customers scored cleanly",
+        "value": 1.0,
+        "op": ">=",
+        "threshold": 1.0,
+        "passed": true,
+        "why": "No errors or NaNs on extreme valid inputs"
+      },
+      {
+        "id": "T10",
+        "area": "Testing",
+        "check": "Segmentation ARI across 10 seeds, minimum",
+        "value": 0.9852994475393694,
+        "op": ">=",
+        "threshold": 0.8,
+        "passed": true,
+        "why": "Segments do not depend on the random seed"
+      },
+      {
+        "id": "T11",
+        "area": "Testing",
+        "check": "Segmentation ARI on 80% subsamples, minimum",
+        "value": 0.916941131126677,
+        "op": ">=",
+        "threshold": 0.7,
+        "passed": true,
+        "why": "Segments survive a change of sample"
+      },
+      {
+        "id": "T12",
+        "area": "Testing",
+        "check": "Lowest ROC AUC across customer slices",
+        "value": 0.8998336929162172,
+        "op": ">=",
+        "threshold": 0.75,
+        "passed": true,
+        "why": "No customer group where the model fails"
+      },
+      {
+        "id": "B1",
+        "area": "Benchmarking",
+        "check": "Shipped model beats the best no-model rule (mean ROC AUC gap)",
+        "value": 0.11959224720978534,
+        "op": ">=",
+        "threshold": 0.02,
+        "passed": true,
+        "why": "Machine learning adds value over business rules"
+      },
+      {
+        "id": "B2",
+        "area": "Benchmarking",
+        "check": "Shipped model within 0.01 ROC AUC of the best learner",
+        "value": 0.0,
+        "op": ">=",
+        "threshold": -0.01,
+        "passed": true,
+        "why": "No other tested learner is clearly better"
+      },
+      {
+        "id": "B3",
+        "area": "Benchmarking",
+        "check": "Single-customer scoring p95 latency (ms)",
+        "value": 72.642809999968,
+        "op": "<=",
+        "threshold": 50.0,
+        "passed": false,
+        "why": "Fast enough for interactive scoring"
+      },
+      {
+        "id": "B4",
+        "area": "Benchmarking",
+        "check": "POST /api/score p95 latency, in process (ms)",
+        "value": 66.76848500001142,
+        "op": "<=",
+        "threshold": 100.0,
+        "passed": true,
+        "why": "API answers well within a page interaction"
+      },
+      {
+        "id": "B5",
+        "area": "Benchmarking",
+        "check": "Full training pipeline (s)",
+        "value": 17.151664299999993,
+        "op": "<=",
+        "threshold": 300.0,
+        "passed": true,
+        "why": "Retraining is cheap"
+      }
+    ],
+    "by_area": {
+      "Evaluation": {
+        "passed": 6,
+        "total": 6
+      },
+      "Performance": {
+        "passed": 5,
+        "total": 5
+      },
+      "Testing": {
+        "passed": 12,
+        "total": 12
+      },
+      "Benchmarking": {
+        "passed": 4,
+        "total": 5
+      }
+    },
+    "passed": 27,
+    "total": 28,
+    "verdict": "ready with noted exceptions"
+  }
+}

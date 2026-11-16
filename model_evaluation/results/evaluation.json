@@ -1,0 +1,152 @@
+{
+  "response_model": {
+    "ranking": {
+      "n": 448,
+      "positives": 67,
+      "base_rate": 0.14955357142857142,
+      "roc_auc": 0.922709288204646,
+      "pr_auc": 0.7043740660133175,
+      "log_loss": 0.23948729038238525,
+      "log_loss_base_rate": 0.4219341278076172,
+      "brier": 0.07368709146976471,
+      "brier_base_rate": 0.1271873414516449,
+      "brier_skill_score": 0.42064131045793063,
+      "roc_auc_ci95": [
+        0.8837260547655424,
+        0.9536309593763466
+      ],
+      "pr_auc_ci95": [
+        0.6101053337699737,
+        0.7957786073483691
+      ]
+    },
+    "thresholds": {
+      "default_0.5": {
+        "threshold": 0.5,
+        "flagged_share": 0.09375,
+        "accuracy": 0.8995535714285714,
+        "balanced_accuracy": 0.7256826105692012,
+        "precision": 0.7619047619047619,
+        "recall": 0.47761194029850745,
+        "f1": 0.5871559633027523,
+        "mcc": 0.5522558432627221,
+        "confusion": {
+          "tn": 371,
+          "fp": 10,
+          "fn": 35,
+          "tp": 32
+        }
+      },
+      "best_f1_on_train": {
+        "threshold": 0.24199999868869781,
+        "flagged_share": 0.18526785714285715,
+        "accuracy": 0.8883928571428571,
+        "balanced_accuracy": 0.8298272417440358,
+        "precision": 0.6024096385542169,
+        "recall": 0.746268656716418,
+        "f1": 0.6666666666666666,
+        "mcc": 0.6055233979716977,
+        "confusion": {
+          "tn": 348,
+          "fp": 33,
+          "fn": 17,
+          "tp": 50
+        }
+      },
+      "best_profit_on_train": {
+        "threshold": 0.24199999868869781,
+        "flagged_share": 0.18526785714285715,
+        "accuracy": 0.8883928571428571,
+        "balanced_accuracy": 0.8298272417440358,
+        "precision": 0.6024096385542169,
+        "recall": 0.746268656716418,
+        "f1": 0.6666666666666666,
+        "mcc": 0.6055233979716977,
+        "confusion": {
+          "tn": 348,
+          "fp": 33,
+          "fn": 17,
+          "tp": 50
+        }
+      },
+      "break_even": {
+        "threshold": 0.2727272727272727,
+        "flagged_share": 0.16071428571428573,
+        "accuracy": 0.8861607142857143,
+        "balanced_accuracy": 0.7916128021310769,
+        "precision": 0.6111111111111112,
+        "recall": 0.6567164179104478,
+        "f1": 0.6330935251798561,
+        "mcc": 0.5663387791294394,
+        "confusion": {
+          "tn": 353,
+          "fp": 28,
+          "fn": 23,
+          "tp": 44
+        }
+      }
+    },
+    "artifact_report_holdout_roc_auc": 0.922709288204646
+  },
+  "segmentation": {
+    "k": 3,
+    "silhouette": 0.17721111338201984,
+    "davies_bouldin": 1.760344772198085,
+    "calinski_harabasz": 632.572720766255,
+    "sizes": [
+      863,
+      622,
+      751
+    ],
+    "smallest_share": 0.278175313059034,
+    "k_selection": {
+      "scores": [
+        {
+          "k": 2,
+          "inertia": 25917.959122417036,
+          "silhouette": 0.24710363623461587,
+          "davies_bouldin": 1.562877885247014
+        },
+        {
+          "k": 3,
+          "inertia": 22837.21716507979,
+          "silhouette": 0.17721111338237752,
+          "davies_bouldin": 1.760344772198085
+        },
+        {
+          "k": 4,
+          "inertia": 21175.41856609791,
+          "silhouette": 0.15603280489098237,
+          "davies_bouldin": 1.9954393665880616
+        },
+        {
+          "k": 5,
+          "inertia": 20038.96363824531,
+          "silhouette": 0.1359485338005214,
+          "davies_bouldin": 2.0303176954344555
+        },
+        {
+          "k": 6,
+          "inertia": 19296.0412710999,
+          "silhouette": 0.12412495045280178,
+          "davies_bouldin": 2.1068489702674307
+        },
+        {
+          "k": 7,
+          "inertia": 18599.29159144543,
+          "silhouette": 0.12233850797454518,
+          "davies_bouldin": 2.140167161466898
+        },
+        {
+          "k": 8,
+          "inertia": 18086.273759150066,
+          "silhouette": 0.11084637941786575,
+          "davies_bouldin": 2.2275530359235134
+        }
+      ],
+      "chosen_k": 3,
+      "elbow_k": 3,
+      "rule": "best silhouette among k >= 3"
+    }
+  }
+}

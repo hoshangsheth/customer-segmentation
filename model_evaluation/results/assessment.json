@@ -1,0 +1,312 @@
+{
+  "derived": {
+    "pr_auc_over_base": 4.709844501103974,
+    "profit_gain": 4487.0,
+    "edge_ok": 1.0,
+    "gap_vs_best_rule": 0.11959224720978534,
+    "gap_to_best_model": 0.0
+  },
+  "scorecard": [
+    {
+      "id": "E1",
+      "area": "Evaluation",
+      "check": "Holdout ROC AUC",
+      "value": 0.922709288204646,
+      "op": ">=",
+      "threshold": 0.85,
+      "passed": true,
+      "why": "Strong ranking of responders on unseen customers"
+    },
+    {
+      "id": "E2",
+      "area": "Evaluation",
+      "check": "Holdout ROC AUC, lower 95% bound",
+      "value": 0.8837260547655424,
+      "op": ">=",
+      "threshold": 0.8,
+      "passed": true,
+      "why": "Good ranking even at the pessimistic end of the interval"
+    },
+    {
+      "id": "E3",
+      "area": "Evaluation",
+      "check": "Holdout PR AUC as a multiple of the base rate",
+      "value": 4.709844501103974,
+      "op": ">=",
+      "threshold": 3.0,
+      "passed": true,
+      "why": "Precision far above random on a 15% positive class"
+    },
+    {
+      "id": "E4",
+      "area": "Evaluation",
+      "check": "Brier skill score vs predicting the base rate",
+      "value": 0.42064131045793063,
+      "op": ">=",
+      "threshold": 0.2,
+      "passed": true,
+      "why": "Probabilities carry real information"
+    },
+    {
+      "id": "E5",
+      "area": "Evaluation",
+      "check": "Segmentation silhouette",
+      "value": 0.17721111338201984,
+      "op": ">=",
+      "threshold": 0.1,
+      "passed": true,
+      "why": "Segments are separated, not arbitrary slices"
+    },
+    {
+      "id": "E6",
+      "area": "Evaluation",
+      "check": "Smallest segment share",
+      "value": 0.278175313059034,
+      "op": ">=",
+      "threshold": 0.1,
+      "passed": true,
+      "why": "Every segment is big enough to run a campaign on"
+    },
+    {
+      "id": "P1",
+      "area": "Performance",
+      "check": "Top-10% lift, lower 95% bound",
+      "value": 4.446571844646949,
+      "op": ">=",
+      "threshold": 3.0,
+      "passed": true,
+      "why": "Targeting the top decile clearly beats contacting everyone"
+    },
+    {
+      "id": "P2",
+      "area": "Performance",
+      "check": "Best campaign profit vs contacting everyone ($)",
+      "value": 4487.0,
+      "op": ">=",
+      "threshold": 0.0,
+      "passed": true,
+      "why": "Model-led targeting pays for itself"
+    },
+    {
+      "id": "P3",
+      "area": "Performance",
+      "check": "Expected calibration error (holdout)",
+      "value": 0.026943625763254073,
+      "op": "<=",
+      "threshold": 0.05,
+      "passed": true,
+      "why": "Scores can be read as response rates"
+    },
+    {
+      "id": "P4",
+      "area": "Performance",
+      "check": "Std of ROC AUC over 25 repeated-CV fits",
+      "value": 0.011170768211439178,
+      "op": "<=",
+      "threshold": 0.03,
+      "passed": true,
+      "why": "Performance does not hinge on a lucky split"
+    },
+    {
+      "id": "P5",
+      "area": "Performance",
+      "check": "Best segment lift on the test split",
+      "value": 1.7729534147444594,
+      "op": ">=",
+      "threshold": 1.2,
+      "passed": true,
+      "why": "Segments alone deliver at least a 20% lift"
+    },
+    {
+      "id": "T1",
+      "area": "Testing",
+      "check": "Same-seed retrain, max prediction difference",
+      "value": 0.0,
+      "op": "<=",
+      "threshold": 1e-09,
+      "passed": true,
+      "why": "Training is deterministic"
+    },
+    {
+      "id": "T2",
+      "area": "Testing",
+      "check": "Shipped artifact vs fresh retrain, max difference",
+      "value": 0.0,
+      "op": "<=",
+      "threshold": 1e-06,
+      "passed": true,
+      "why": "The served model is exactly the evaluated one"
+    },
+    {
+      "id": "T3",
+      "area": "Testing",
+      "check": "Label-shuffle AUC, max distance from 0.5",
+      "value": 0.049144043561718975,
+      "op": "<=",
+      "threshold": 0.08,
+      "passed": true,
+      "why": "No leakage: the model learns nothing from shuffled labels"
+    },
+    {
+      "id": "T4",
+      "area": "Testing",
+      "check": "Rank correlation under 5% feature noise",
+      "value": 0.9904532062034695,
+      "op": ">=",
+      "threshold": 0.95,
+      "passed": true,
+      "why": "Small measurement noise does not reshuffle the target list"
+    },
+    {
+      "id": "T5",
+      "area": "Testing",
+      "check": "Share where an extra past acceptance does not lower the score",
+      "value": 1.0,
+      "op": ">=",
+      "threshold": 0.9,
+      "passed": true,
+      "why": "Behaves as marketing expects"
+    },
+    {
+      "id": "T6",
+      "area": "Testing",
+      "check": "Share where 30 more days of inactivity does not raise the score",
+      "value": 0.9575892857142857,
+      "op": ">=",
+      "threshold": 0.8,
+      "passed": true,
+      "why": "Lapsing customers are scored lower"
+    },
+    {
+      "id": "T7",
+      "area": "Testing",
+      "check": "Batch vs single-row scoring, max difference",
+      "value": 0.0,
+      "op": "<=",
+      "threshold": 1e-09,
+      "passed": true,
+      "why": "API single scores match batch scores"
+    },
+    {
+      "id": "T8",
+      "area": "Testing",
+      "check": "SHAP additivity error (logit)",
+      "value": 5.245208740234375e-06,
+      "op": "<=",
+      "threshold": 0.001,
+      "passed": true,
+      "why": "Explanations add up to the prediction"
+    },
+    {
+      "id": "T9",
+      "area": "Testing",
+      "check": "Edge-case customers scored cleanly",
+      "value": 1.0,
+      "op": ">=",
+      "threshold": 1.0,
+      "passed": true,
+      "why": "No errors or NaNs on extreme valid inputs"
+    },
+    {
+      "id": "T10",
+      "area": "Testing",
+      "check": "Segmentation ARI across 10 seeds, minimum",
+      "value": 0.9852994475393694,
+      "op": ">=",
+      "threshold": 0.8,
+      "passed": true,
+      "why": "Segments do not depend on the random seed"
+    },
+    {
+      "id": "T11",
+      "area": "Testing",
+      "check": "Segmentation ARI on 80% subsamples, minimum",
+      "value": 0.916941131126677,
+      "op": ">=",
+      "threshold": 0.7,
+      "passed": true,
+      "why": "Segments survive a change of sample"
+    },
+    {
+      "id": "T12",
+      "area": "Testing",
+      "check": "Lowest ROC AUC across customer slices",
+      "value": 0.8998336929162172,
+      "op": ">=",
+      "threshold": 0.75,
+      "passed": true,
+      "why": "No customer group where the model fails"
+    },
+    {
+      "id": "B1",
+      "area": "Benchmarking",
+      "check": "Shipped model beats the best no-model rule (mean ROC AUC gap)",
+      "value": 0.11959224720978534,
+      "op": ">=",
+      "threshold": 0.02,
+      "passed": true,
+      "why": "Machine learning adds value over business rules"
+    },
+    {
+      "id": "B2",
+      "area": "Benchmarking",
+      "check": "Shipped model within 0.01 ROC AUC of the best learner",
+      "value": 0.0,
+      "op": ">=",
+      "threshold": -0.01,
+      "passed": true,
+      "why": "No other tested learner is clearly better"
+    },
+    {
+      "id": "B3",
+      "area": "Benchmarking",
+      "check": "Single-customer scoring p95 latency (ms)",
+      "value": 72.642809999968,
+      "op": "<=",
+      "threshold": 50.0,
+      "passed": false,
+      "why": "Fast enough for interactive scoring"
+    },
+    {
+      "id": "B4",
+      "area": "Benchmarking",
+      "check": "POST /api/score p95 latency, in process (ms)",
+      "value": 66.76848500001142,
+      "op": "<=",
+      "threshold": 100.0,
+      "passed": true,
+      "why": "API answers well within a page interaction"
+    },
+    {
+      "id": "B5",
+      "area": "Benchmarking",
+      "check": "Full training pipeline (s)",
+      "value": 17.151664299999993,
+      "op": "<=",
+      "threshold": 300.0,
+      "passed": true,
+      "why": "Retraining is cheap"
+    }
+  ],
+  "by_area": {
+    "Evaluation": {
+      "passed": 6,
+      "total": 6
+    },
+    "Performance": {
+      "passed": 5,
+      "total": 5
+    },
+    "Testing": {
+      "passed": 12,
+      "total": 12
+    },
+    "Benchmarking": {
+      "passed": 4,
+      "total": 5
+    }
+  },
+  "passed": 27,
+  "total": 28,
+  "verdict": "ready with noted exceptions"
+}

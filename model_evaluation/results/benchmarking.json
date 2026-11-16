@@ -1,0 +1,147 @@
+{
+  "models": {
+    "scheme": "3x5 repeated stratified K-fold, all customers",
+    "folds": 15,
+    "rows": [
+      {
+        "model": "XGBoost (shipped)",
+        "roc_auc_mean": 0.9200597970017965,
+        "roc_auc_std": 0.012989243201328856,
+        "pr_auc_mean": 0.7072579395422468,
+        "top10_lift_mean": 4.860775918387859,
+        "fit_seconds_mean": 0.672757759999998,
+        "predict_ms_per_1k_rows": 16.267591715928592,
+        "shipped_minus_this_auc": 0.0,
+        "shipped_wins_folds": 0
+      },
+      {
+        "model": "Hist gradient boosting",
+        "roc_auc_mean": 0.913853808604568,
+        "roc_auc_std": 0.014121135085770536,
+        "pr_auc_mean": 0.6818525406236267,
+        "top10_lift_mean": 4.790751294034877,
+        "fit_seconds_mean": 1.181505640000008,
+        "predict_ms_per_1k_rows": 31.57902481488044,
+        "shipped_minus_this_auc": 0.00620598839722862,
+        "shipped_wins_folds": 14
+      },
+      {
+        "model": "Logistic regression",
+        "roc_auc_mean": 0.9089963078569568,
+        "roc_auc_std": 0.0173404774752629,
+        "pr_auc_mean": 0.6704498083352649,
+        "top10_lift_mean": 4.8297542590079905,
+        "fit_seconds_mean": 0.026978539999997036,
+        "predict_ms_per_1k_rows": 6.760746411246627,
+        "shipped_minus_this_auc": 0.011063489144839537,
+        "shipped_wins_folds": 11
+      },
+      {
+        "model": "Random forest",
+        "roc_auc_mean": 0.9047325273193239,
+        "roc_auc_std": 0.017041461909620085,
+        "pr_auc_mean": 0.6612657960415554,
+        "top10_lift_mean": 4.573283079551738,
+        "fit_seconds_mean": 1.8592769133333378,
+        "predict_ms_per_1k_rows": 165.9859206215838,
+        "shipped_minus_this_auc": 0.01532726968247254,
+        "shipped_wins_folds": 15
+      },
+      {
+        "model": "Rule: past acceptances + recency",
+        "roc_auc_mean": 0.8004675497920112,
+        "roc_auc_std": 0.025639290217808888,
+        "pr_auc_mean": 0.5184532017923705,
+        "top10_lift_mean": 4.025958088346149,
+        "fit_seconds_mean": 0.0006584066666694828,
+        "predict_ms_per_1k_rows": 2.2879082774141977,
+        "shipped_minus_this_auc": 0.11959224720978527,
+        "shipped_wins_folds": 15
+      },
+      {
+        "model": "Rule: RFM score",
+        "roc_auc_mean": 0.7225615977970141,
+        "roc_auc_std": 0.02601687827813354,
+        "pr_auc_mean": 0.3179185792929957,
+        "top10_lift_mean": 2.4695381677471233,
+        "fit_seconds_mean": 0.0008317399999972015,
+        "predict_ms_per_1k_rows": 6.716647424643232,
+        "shipped_minus_this_auc": 0.19749819920478232,
+        "shipped_wins_folds": 15
+      },
+      {
+        "model": "Dummy (base rate)",
+        "roc_auc_mean": 0.5,
+        "roc_auc_std": 0.0,
+        "pr_auc_mean": 0.14937380153403643,
+        "top10_lift_mean": 0.9730428664757025,
+        "fit_seconds_mean": 0.002108020000006642,
+        "predict_ms_per_1k_rows": 1.2093591869099996,
+        "shipped_minus_this_auc": 0.4200597970017964,
+        "shipped_wins_folds": 15
+      }
+    ]
+  },
+  "compute": {
+    "training_pipeline_seconds": 17.151664299999993,
+    "single_customer_score": {
+      "calls": 300,
+      "p50_ms": 52.71199999998544,
+      "p95_ms": 72.642809999968,
+      "p99_ms": 112.20283099995017,
+      "mean_ms": 55.90851299999789,
+      "breakdown_p50_ms": {
+        "input_to_frame": 0.7021999999778927,
+        "feature_engineering": 15.451149999989866,
+        "segment_assignment": 3.9193000000068423,
+        "response_probability": 3.6013000000139073,
+        "shap_explanation": 8.807199999978366
+      }
+    },
+    "batch_scoring": {
+      "rows": 22360,
+      "seconds": 0.1627889999999752,
+      "rows_per_second": 137355.71813822436
+    },
+    "api_latency_in_process": {
+      "GET /api/health": {
+        "calls": 200,
+        "p50_ms": 6.353250000017852,
+        "p95_ms": 7.600949999982731,
+        "p99_ms": 8.522938000010068,
+        "mean_ms": 6.452071500000329
+      },
+      "GET /api/overview": {
+        "calls": 200,
+        "p50_ms": 6.867100000022219,
+        "p95_ms": 8.165279999934683,
+        "p99_ms": 10.199917999923382,
+        "mean_ms": 6.999165500000686
+      },
+      "GET /api/lift": {
+        "calls": 200,
+        "p50_ms": 7.482649999985824,
+        "p95_ms": 9.046865000038906,
+        "p99_ms": 10.43620600000508,
+        "mean_ms": 7.988249500000961
+      },
+      "POST /api/score": {
+        "calls": 200,
+        "p50_ms": 58.32580000003418,
+        "p95_ms": 66.76848500001142,
+        "p99_ms": 69.35417900001988,
+        "mean_ms": 59.74070649999759
+      }
+    },
+    "artifact_version": "20261114-003713",
+    "artifact_bytes": {
+      "projection.joblib": 1383,
+      "report.json": 291929,
+      "response_model.joblib": 346287,
+      "response_model_no_history.joblib": 344559,
+      "segmenter.joblib": 11193
+    },
+    "artifact_total_kb": 972.0224609375,
+    "notes": "Latency is in-process (FastAPI TestClient), single thread, no network; real deployments add transport time."
+  }
+}

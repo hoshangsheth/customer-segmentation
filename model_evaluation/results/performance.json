@@ -1,0 +1,464 @@
+{
+  "targeting": {
+    "method": "out-of-fold scores, stratified 5-fold over all customers",
+    "customers": 2236,
+    "base_rate": 0.14937388193202147,
+    "oof_roc_auc": 0.9213819994081238,
+    "oof_pr_auc": 0.7016516619511459,
+    "ks_statistic": 0.7066497802734375,
+    "deciles": [
+      {
+        "decile": 1,
+        "customers": 224,
+        "responders": 162,
+        "response_rate": 0.7232142857142857,
+        "lift": 4.841638152266895,
+        "cumulative_capture": 0.48502994011976047
+      },
+      {
+        "decile": 2,
+        "customers": 224,
+        "responders": 92,
+        "response_rate": 0.4107142857142857,
+        "lift": 2.7495722840034214,
+        "cumulative_capture": 0.7604790419161677
+      },
+      {
+        "decile": 3,
+        "customers": 224,
+        "responders": 46,
+        "response_rate": 0.20535714285714285,
+        "lift": 1.3747861420017107,
+        "cumulative_capture": 0.8982035928143712
+      },
+      {
+        "decile": 4,
+        "customers": 224,
+        "responders": 15,
+        "response_rate": 0.06696428571428571,
+        "lift": 0.4482998289136013,
+        "cumulative_capture": 0.9431137724550899
+      },
+      {
+        "decile": 5,
+        "customers": 224,
+        "responders": 12,
+        "response_rate": 0.05357142857142857,
+        "lift": 0.35863986313088103,
+        "cumulative_capture": 0.9790419161676647
+      },
+      {
+        "decile": 6,
+        "customers": 224,
+        "responders": 3,
+        "response_rate": 0.013392857142857142,
+        "lift": 0.08965996578272026,
+        "cumulative_capture": 0.9880239520958084
+      },
+      {
+        "decile": 7,
+        "customers": 223,
+        "responders": 2,
+        "response_rate": 0.008968609865470852,
+        "lift": 0.06004135227303241,
+        "cumulative_capture": 0.9940119760479041
+      },
+      {
+        "decile": 8,
+        "customers": 223,
+        "responders": 0,
+        "response_rate": 0.0,
+        "lift": 0.0,
+        "cumulative_capture": 0.9940119760479041
+      },
+      {
+        "decile": 9,
+        "customers": 223,
+        "responders": 1,
+        "response_rate": 0.004484304932735426,
+        "lift": 0.030020676136516204,
+        "cumulative_capture": 0.9970059880239521
+      },
+      {
+        "decile": 10,
+        "customers": 223,
+        "responders": 1,
+        "response_rate": 0.004484304932735426,
+        "lift": 0.030020676136516204,
+        "cumulative_capture": 1.0
+      }
+    ],
+    "curve": [
+      {
+        "share_targeted": 0.05,
+        "customers": 112,
+        "responders": 97,
+        "response_rate": 0.8660714285714286,
+        "lift": 5.798011120615911,
+        "capture": 0.2904191616766467,
+        "profit": 731.0
+      },
+      {
+        "share_targeted": 0.1,
+        "customers": 224,
+        "responders": 162,
+        "response_rate": 0.7232142857142857,
+        "lift": 4.841638152266895,
+        "capture": 0.48502994011976047,
+        "profit": 1110.0
+      },
+      {
+        "share_targeted": 0.15,
+        "customers": 335,
+        "responders": 207,
+        "response_rate": 0.6179104477611941,
+        "lift": 4.1366699436947005,
+        "capture": 0.6197604790419161,
+        "profit": 1272.0
+      },
+      {
+        "share_targeted": 0.2,
+        "customers": 447,
+        "responders": 254,
+        "response_rate": 0.5682326621923938,
+        "lift": 3.804096504976624,
+        "capture": 0.7604790419161677,
+        "profit": 1453.0
+      },
+      {
+        "share_targeted": 0.25,
+        "customers": 559,
+        "responders": 280,
+        "response_rate": 0.5008944543828264,
+        "lift": 3.353293413173652,
+        "capture": 0.8383233532934131,
+        "profit": 1403.0
+      },
+      {
+        "share_targeted": 0.3,
+        "customers": 671,
+        "responders": 299,
+        "response_rate": 0.4456035767511177,
+        "lift": 2.983142507830836,
+        "capture": 0.8952095808383234,
+        "profit": 1276.0
+      },
+      {
+        "share_targeted": 0.35,
+        "customers": 783,
+        "responders": 308,
+        "response_rate": 0.3933588761174968,
+        "lift": 2.6333845718524636,
+        "capture": 0.9221556886227545,
+        "profit": 1039.0
+      },
+      {
+        "share_targeted": 0.4,
+        "customers": 894,
+        "responders": 315,
+        "response_rate": 0.3523489932885906,
+        "lift": 2.358839368243379,
+        "capture": 0.9431137724550899,
+        "profit": 783.0
+      },
+      {
+        "share_targeted": 0.45,
+        "customers": 1006,
+        "responders": 325,
+        "response_rate": 0.3230616302186879,
+        "lift": 2.1627718717634314,
+        "capture": 0.9730538922155688,
+        "profit": 557.0
+      },
+      {
+        "share_targeted": 0.5,
+        "customers": 1118,
+        "responders": 327,
+        "response_rate": 0.2924865831842576,
+        "lift": 1.9580838323353291,
+        "capture": 0.9790419161676647,
+        "profit": 243.0
+      },
+      {
+        "share_targeted": 0.55,
+        "customers": 1230,
+        "responders": 328,
+        "response_rate": 0.26666666666666666,
+        "lift": 1.7852295409181635,
+        "capture": 0.9820359281437125,
+        "profit": -82.0
+      },
+      {
+        "share_targeted": 0.6,
+        "customers": 1342,
+        "responders": 330,
+        "response_rate": 0.2459016393442623,
+        "lift": 1.6462157651909295,
+        "capture": 0.9880239520958084,
+        "profit": -396.0
+      },
+      {
+        "share_targeted": 0.65,
+        "customers": 1453,
+        "responders": 332,
+        "response_rate": 0.22849277357192016,
+        "lift": 1.5296701847509384,
+        "capture": 0.9940119760479041,
+        "profit": -707.0
+      },
+      {
+        "share_targeted": 0.7,
+        "customers": 1565,
+        "responders": 332,
+        "response_rate": 0.21214057507987222,
+        "lift": 1.4201985804748332,
+        "capture": 0.9940119760479041,
+        "profit": -1043.0
+      },
+      {
+        "share_targeted": 0.75,
+        "customers": 1677,
+        "responders": 332,
+        "response_rate": 0.19797257006559332,
+        "lift": 1.3253493013972055,
+        "capture": 0.9940119760479041,
+        "profit": -1379.0
+      },
+      {
+        "share_targeted": 0.8,
+        "customers": 1789,
+        "responders": 332,
+        "response_rate": 0.18557853549468978,
+        "lift": 1.2423760639704382,
+        "capture": 0.9940119760479041,
+        "profit": -1715.0
+      },
+      {
+        "share_targeted": 0.85,
+        "customers": 1901,
+        "responders": 332,
+        "response_rate": 0.1746449237243556,
+        "lift": 1.1691797887654465,
+        "capture": 0.9940119760479041,
+        "profit": -2051.0
+      },
+      {
+        "share_targeted": 0.9,
+        "customers": 2012,
+        "responders": 333,
+        "response_rate": 0.16550695825049702,
+        "lift": 1.1080046666111119,
+        "capture": 0.9970059880239521,
+        "profit": -2373.0
+      },
+      {
+        "share_targeted": 0.95,
+        "customers": 2124,
+        "responders": 334,
+        "response_rate": 0.15725047080979285,
+        "lift": 1.0527306967984933,
+        "capture": 1.0,
+        "profit": -2698.0
+      },
+      {
+        "share_targeted": 1.0,
+        "customers": 2236,
+        "responders": 334,
+        "response_rate": 0.14937388193202147,
+        "lift": 1.0,
+        "capture": 1.0,
+        "profit": -3034.0
+      }
+    ],
+    "best_profit_point": {
+      "share_targeted": 0.2,
+      "customers": 447,
+      "responders": 254,
+      "response_rate": 0.5682326621923938,
+      "lift": 3.804096504976624,
+      "capture": 0.7604790419161677,
+      "profit": 1453.0
+    },
+    "contact_everyone": {
+      "share_targeted": 1.0,
+      "customers": 2236,
+      "responders": 334,
+      "response_rate": 0.14937388193202147,
+      "lift": 1.0,
+      "capture": 1.0,
+      "profit": -3034.0
+    },
+    "top10_lift_ci95": [
+      4.446571844646949,
+      5.258816924916528
+    ],
+    "top20_lift_ci95": [
+      3.597105855155457,
+      4.017427903394767
+    ]
+  },
+  "calibration": {
+    "expected_calibration_error": 0.026943625763254073,
+    "brier": 0.07368709146976471,
+    "mean_predicted": 0.13101159036159515,
+    "observed_rate": 0.14955357142857142,
+    "bins": [
+      {
+        "mean_predicted": 0.0012409056071192026,
+        "observed_rate": 0.0,
+        "count": 45
+      },
+      {
+        "mean_predicted": 0.0027953870594501495,
+        "observed_rate": 0.022222222222222223,
+        "count": 45
+      },
+      {
+        "mean_predicted": 0.006229356396943331,
+        "observed_rate": 0.0,
+        "count": 45
+      },
+      {
+        "mean_predicted": 0.011335114948451519,
+        "observed_rate": 0.0,
+        "count": 45
+      },
+      {
+        "mean_predicted": 0.01970943622291088,
+        "observed_rate": 0.022222222222222223,
+        "count": 45
+      },
+      {
+        "mean_predicted": 0.03638407215476036,
+        "observed_rate": 0.044444444444444446,
+        "count": 45
+      },
+      {
+        "mean_predicted": 0.06746061146259308,
+        "observed_rate": 0.044444444444444446,
+        "count": 45
+      },
+      {
+        "mean_predicted": 0.15015459060668945,
+        "observed_rate": 0.2222222222222222,
+        "count": 45
+      },
+      {
+        "mean_predicted": 0.31239598989486694,
+        "observed_rate": 0.4090909090909091,
+        "count": 44
+      },
+      {
+        "mean_predicted": 0.7195191979408264,
+        "observed_rate": 0.75,
+        "count": 44
+      }
+    ]
+  },
+  "stability": {
+    "scheme": "5x5 repeated stratified K-fold, all customers",
+    "fits": 25,
+    "roc_auc": {
+      "mean": 0.9216236519495979,
+      "std": 0.011170768211439178,
+      "min": 0.8899057344854674,
+      "max": 0.9478591295491049
+    },
+    "pr_auc": {
+      "mean": 0.7117097446906604,
+      "std": 0.03840774058737862,
+      "min": 0.6371398097400828,
+      "max": 0.7805262125733593
+    },
+    "top10_lift": {
+      "mean": 4.8680295492235794,
+      "std": 0.3460945105895395,
+      "min": 4.29950248756219,
+      "max": 5.349253731343284
+    }
+  },
+  "segment_targeting": {
+    "method": "segments ranked on the training split, measured on the test split",
+    "test_base_rate": 0.14955357142857142,
+    "rows": [
+      {
+        "segments": [
+          1
+        ],
+        "names": [
+          "Affluent catalog buyers"
+        ],
+        "customers": 132,
+        "share_targeted": 0.29464285714285715,
+        "response_rate": 0.26515151515151514,
+        "lift": 1.7729534147444594,
+        "capture": 0.5223880597014925
+      },
+      {
+        "segments": [
+          1,
+          2
+        ],
+        "names": [
+          "Affluent catalog buyers",
+          "Wine enthusiasts"
+        ],
+        "customers": 275,
+        "share_targeted": 0.6138392857142857,
+        "response_rate": 0.19272727272727272,
+        "lift": 1.288683853459973,
+        "capture": 0.7910447761194029
+      },
+      {
+        "segments": [
+          1,
+          2,
+          0
+        ],
+        "names": [
+          "Affluent catalog buyers",
+          "Wine enthusiasts",
+          "Budget browsers"
+        ],
+        "customers": 448,
+        "share_targeted": 1.0,
+        "response_rate": 0.14955357142857142,
+        "lift": 1.0,
+        "capture": 1.0
+      }
+    ],
+    "per_segment_all_customers": [
+      {
+        "segment_id": 1,
+        "name": "Affluent catalog buyers",
+        "customers": 622,
+        "response_rate": 0.2459807073954984,
+        "lift": 1.6467450950189653
+      },
+      {
+        "segment_id": 2,
+        "name": "Wine enthusiasts",
+        "customers": 751,
+        "response_rate": 0.13715046604527298,
+        "lift": 0.9181689882551808
+      },
+      {
+        "segment_id": 0,
+        "name": "Budget browsers",
+        "customers": 863,
+        "response_rate": 0.09038238702201622,
+        "lift": 0.6050749023390067
+      }
+    ]
+  },
+  "claim_check": {
+    "claim": "20% lift in targeted campaign conversion",
+    "required_lift": 1.2,
+    "segment_only_lift": 1.7729534147444594,
+    "segment_only_supported": true,
+    "model_top20_lift": 3.804096504976624,
+    "model_top20_lift_ci95_low": 3.597105855155457,
+    "model_supported": true,
+    "caveat": "Measured on public data as a rebuild; it does not reproduce the original company's campaign."
+  }
+}

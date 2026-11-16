@@ -1,0 +1,219 @@
+{
+  "reproducibility": {
+    "same_seed_max_abs_diff": 0.0,
+    "artifact_vs_retrain_max_abs_diff": 0.0
+  },
+  "label_shuffle": {
+    "repeats": 5,
+    "mean_roc_auc": 0.5232028832216868,
+    "max_abs_dev_from_0.5": 0.049144043561718975
+  },
+  "noise_robustness": {
+    "noise_scale_of_std": 0.05,
+    "continuous_features": 18,
+    "spearman": 0.9904532062034695,
+    "mean_abs_prob_change": 0.015621616505086422,
+    "top_decile_overlap": 0.9333333333333333,
+    "noisy_roc_auc": 0.9146394014181063
+  },
+  "directional": {
+    "extra_prior_acceptance": {
+      "customers": 448,
+      "share_increased": 0.9977678571428571,
+      "share_not_decreased": 1.0,
+      "mean_change": 0.15511645376682281
+    },
+    "recency_plus_30_days": {
+      "customers": 448,
+      "share_decreased": 0.9040178571428571,
+      "share_not_increased": 0.9575892857142857,
+      "mean_change": -0.05015651136636734
+    }
+  },
+  "batch_invariance": {
+    "batch_vs_single_max_abs_diff": 0.0,
+    "row_order_max_abs_diff": 0.0
+  },
+  "shap_additivity": {
+    "max_abs_error_logit": 5.245208740234375e-06
+  },
+  "edge_inputs": {
+    "cases": {
+      "median_customer": {
+        "ok": true,
+        "probability": 0.007102455012500286,
+        "segment": "Wine enthusiasts"
+      },
+      "no_spend_no_purchases": {
+        "ok": true,
+        "probability": 0.005241232458502054,
+        "segment": "Budget browsers"
+      },
+      "very_high_spender": {
+        "ok": true,
+        "probability": 0.026074642315506935,
+        "segment": "Affluent catalog buyers"
+      },
+      "accepted_all_campaigns": {
+        "ok": true,
+        "probability": 0.905548095703125,
+        "segment": "Wine enthusiasts"
+      },
+      "brand_new_customer": {
+        "ok": true,
+        "probability": 0.02977115660905838,
+        "segment": "Wine enthusiasts"
+      },
+      "oldest_allowed_birth_year": {
+        "ok": true,
+        "probability": 0.008545470423996449,
+        "segment": "Wine enthusiasts"
+      }
+    },
+    "all_ok": true
+  },
+  "segmentation_stability": {
+    "k": 3,
+    "seed_ari_mean": 0.9930864087629209,
+    "seed_ari_min": 0.9852994475393694,
+    "subsample_ari_mean": 0.9732906017433848,
+    "subsample_ari_min": 0.916941131126677,
+    "subsample_share": 0.8
+  },
+  "slices": {
+    "groups": {
+      "age": [
+        {
+          "group": "40 to 54",
+          "customers": 892,
+          "responders": 129,
+          "response_rate": 0.1446188340807175,
+          "mean_predicted": 0.13170714676380157,
+          "roc_auc": 0.9138955774330215
+        },
+        {
+          "group": "55 to 69",
+          "customers": 551,
+          "responders": 81,
+          "response_rate": 0.147005444646098,
+          "mean_predicted": 0.1347499042749405,
+          "roc_auc": 0.9242448121880745
+        },
+        {
+          "group": "70 plus",
+          "customers": 16,
+          "responders": 4,
+          "response_rate": 0.25,
+          "mean_predicted": 0.22803336381912231,
+          "roc_auc": null
+        },
+        {
+          "group": "under 40",
+          "customers": 777,
+          "responders": 120,
+          "response_rate": 0.15444015444015444,
+          "mean_predicted": 0.1505739688873291,
+          "roc_auc": 0.9301306443429731
+        }
+      ],
+      "income": [
+        {
+          "group": "lower third",
+          "customers": 746,
+          "responders": 86,
+          "response_rate": 0.11528150134048257,
+          "mean_predicted": 0.10380817949771881,
+          "roc_auc": 0.920375264270613
+        },
+        {
+          "group": "middle third",
+          "customers": 745,
+          "responders": 75,
+          "response_rate": 0.10067114093959731,
+          "mean_predicted": 0.0941879153251648,
+          "roc_auc": 0.9099402985074627
+        },
+        {
+          "group": "upper third",
+          "customers": 745,
+          "responders": 173,
+          "response_rate": 0.23221476510067113,
+          "mean_predicted": 0.2211591750383377,
+          "roc_auc": 0.9179079590929301
+        }
+      ],
+      "education": [
+        {
+          "group": "Graduate",
+          "customers": 1126,
+          "responders": 152,
+          "response_rate": 0.1349911190053286,
+          "mean_predicted": 0.12783949077129364,
+          "roc_auc": 0.9225757862314925
+        },
+        {
+          "group": "Postgraduate",
+          "customers": 855,
+          "responders": 158,
+          "response_rate": 0.1847953216374269,
+          "mean_predicted": 0.1664927452802658,
+          "roc_auc": 0.9181755443764414
+        },
+        {
+          "group": "Undergraduate",
+          "customers": 255,
+          "responders": 24,
+          "response_rate": 0.09411764705882353,
+          "mean_predicted": 0.10225857049226761,
+          "roc_auc": 0.9184704184704185
+        }
+      ],
+      "household": [
+        {
+          "group": "Partnered",
+          "customers": 1442,
+          "responders": 158,
+          "response_rate": 0.10957004160887657,
+          "mean_predicted": 0.10576675087213516,
+          "roc_auc": 0.912112070665247
+        },
+        {
+          "group": "Single",
+          "customers": 794,
+          "responders": 176,
+          "response_rate": 0.2216624685138539,
+          "mean_predicted": 0.20133353769779205,
+          "roc_auc": 0.9232081126802001
+        }
+      ],
+      "segment": [
+        {
+          "group": "Affluent catalog buyers",
+          "customers": 622,
+          "responders": 153,
+          "response_rate": 0.2459807073954984,
+          "mean_predicted": 0.23237845301628113,
+          "roc_auc": 0.9229413158298145
+        },
+        {
+          "group": "Budget browsers",
+          "customers": 863,
+          "responders": 78,
+          "response_rate": 0.09038238702201622,
+          "mean_predicted": 0.08045430481433868,
+          "roc_auc": 0.9227094561489466
+        },
+        {
+          "group": "Wine enthusiasts",
+          "customers": 751,
+          "responders": 103,
+          "response_rate": 0.13715046604527298,
+          "mean_predicted": 0.13102932274341583,
+          "roc_auc": 0.8998336929162172
+        }
+      ]
+    },
+    "min_slice_roc_auc": 0.8998336929162172,
+    "max_slice_roc_auc": 0.9301306443429731
+  }
+}

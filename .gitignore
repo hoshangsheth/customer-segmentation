@@ -12,6 +12,5 @@ data/raw/*
 !data/raw/.gitkeep
 frontend/node_modules/
 frontend/dist/
-.claude/
 .vscode/
 .idea/

@@ -79,3 +79,32 @@ def test_gemini_errors_become_llm_errors():
     for models in (_StubModels(text="not json"), _StubModels(error=OSError("offline"))):
         with pytest.raises(LLMError):
             _gemini_with(models).complete_json(system="s", user="u", schema={})
+
+
+def test_gemini_retries_once_on_the_fallback_model():
+    import pytest
+
+    from customer_segmentation.llm.contracts import LLMError
+
+    class FlakyModels:
+        def __init__(self):
+            self.calls = []
+
+        def generate_content(self, **kwargs):
+            self.calls.append(kwargs["model"])
+            if len(self.calls) == 1:
+                raise TimeoutError("slow")
+            return type("Resp", (), {"text": '{"ok": 1}'})()
+
+    flaky = FlakyModels()
+    provider = _gemini_with(flaky)
+    assert provider.complete_json(system="s", user="u", schema={}) == {"ok": 1}
+    assert flaky.calls == [provider.model, provider.fallback_model]
+    assert provider.last_model == provider.fallback_model
+
+    no_fallback = build_provider(Settings(_env_file=None, gemini_api_key="k", llm_fallback_model=""))
+    no_fallback.client = type("Client", (), {"models": _StubModels(error=OSError("down"))})()
+    with pytest.raises(LLMError):
+        no_fallback.complete_json(system="s", user="u", schema={})
+    same = build_provider(Settings(_env_file=None, gemini_api_key="k", llm_model="x", llm_fallback_model="x"))
+    assert same.fallback_model == ""

@@ -31,8 +31,9 @@ class Settings(BaseSettings):
     # LLM (optional: the app works without a key)
     llm_provider: str = "gemini"
     llm_model: str = ""  # empty -> provider default
+    llm_fallback_model: str | None = None  # None -> provider default; empty -> no fallback
     gemini_api_key: str = ""
-    llm_timeout_s: float = 30.0
+    llm_timeout_s: float = 20.0  # per attempt; a slow model then falls back once
 
     # API
     frontend_dist: Path = Path("frontend/dist")  # built web app served at / when present

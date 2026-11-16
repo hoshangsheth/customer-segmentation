@@ -49,6 +49,8 @@ The evaluation covers leakage (label shuffling), robustness to noise, directiona
 | --- | --- |
 | ![Segments](docs/screenshots/segments.jpg) | ![Performance](docs/screenshots/performance.jpg) |
 
+![AI personas written from the segment statistics](docs/screenshots/insights.jpg)
+
 ## Which data works
 
 The models learned from one retailer, so they work best on similar data: consumer retail customers, one row per customer, spend by category and purchases by channel, and responses to direct-marketing offers. They are not meant for business-to-business, subscription, banking or insurance data, or for any decision with legal effect. The app shows this guidance on the upload page and flags uploads that look unlike the training data.

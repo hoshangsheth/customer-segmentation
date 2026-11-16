@@ -77,6 +77,10 @@ class InsightsService:
     def ai_available(self) -> bool:
         return self.provider is not None
 
+    def _model_used(self) -> str:
+        """The model that answered the last request (the fallback, if it was needed)."""
+        return getattr(self.provider, "last_model", None) or getattr(self.provider, "model", "")
+
     def _ask(self, system: str, user: str, schema: dict) -> dict | None:
         if self.provider is None:
             return None
@@ -92,7 +96,7 @@ class InsightsService:
             return self._persona_cache[sid]
         data = self._ask(PERSONA_SYSTEM, persona_prompt(segment, population), PERSONA_SCHEMA)
         if data is not None:
-            result = {**data, "source": "llm", "model": getattr(self.provider, "model", "")}
+            result = {**data, "source": "llm", "model": self._model_used()}
             self._persona_cache[sid] = result  # cache only real answers so a later retry can succeed
             return result
         return {**self._persona_fallback(segment), "source": "rule-based", "model": ""}
@@ -100,13 +104,13 @@ class InsightsService:
     def explain_score(self, score: dict) -> dict[str, Any]:
         data = self._ask(EXPLAIN_SYSTEM, explain_prompt(score), EXPLAIN_SCHEMA)
         if data is not None:
-            return {**data, "source": "llm", "model": getattr(self.provider, "model", "")}
+            return {**data, "source": "llm", "model": self._model_used()}
         return {**self._explain_fallback(score), "source": "rule-based", "model": ""}
 
     def campaign_brief(self, context: dict) -> dict[str, Any]:
         data = self._ask(BRIEF_SYSTEM, brief_prompt(context), BRIEF_SCHEMA)
         if data is not None:
-            return {**data, "source": "llm", "model": getattr(self.provider, "model", "")}
+            return {**data, "source": "llm", "model": self._model_used()}
         return {**self._brief_fallback(context), "source": "rule-based", "model": ""}
 
     @staticmethod

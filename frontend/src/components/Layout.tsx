@@ -37,7 +37,7 @@ function Logo() {
           <circle cx="10" cy="13.5" r="3.2" fill="#0a0e0a" fillOpacity=".85" />
         </svg>
       </div>
-      <span className="font-display text-lg font-bold tracking-tight md:text-xl">
+      <span className="font-display text-lg font-bold tracking-tight whitespace-nowrap md:text-xl">
         Customer Segments
       </span>
     </Link>
@@ -65,7 +65,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
           <nav
             aria-label="Main"
-            className="hidden items-center gap-1 rounded-full border border-line bg-surface px-1.5 py-1.5 md:flex"
+            className="hidden items-center gap-1 rounded-full border border-line bg-surface px-1.5 py-1.5 lg:flex"
           >
             {NAV.map(({ to, label }) => (
               <NavLink
@@ -73,7 +73,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 to={to}
                 end={to === '/'}
                 className={({ isActive }) =>
-                  `relative rounded-full px-4 py-1.5 text-sm transition-colors ${isActive ? 'text-ink' : 'text-mute hover:text-ink'}`
+                  `relative rounded-full px-4 py-1.5 text-sm whitespace-nowrap transition-colors ${isActive ? 'text-ink' : 'text-mute hover:text-ink'}`
                 }
               >
                 {({ isActive }) => (
@@ -111,7 +111,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               onClick={() => setMenuOpen((o) => !o)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
-              className="grid size-10 place-items-center rounded-full border border-line bg-surface md:hidden"
+              className="grid size-10 place-items-center rounded-full border border-line bg-surface lg:hidden"
             >
               {menuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
             </button>
@@ -126,7 +126,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.18 }}
-              className="relative mx-5 rounded-3xl border border-line bg-surface p-2 shadow-2xl md:hidden"
+              className="relative mx-5 rounded-3xl border border-line bg-surface p-2 shadow-2xl lg:hidden"
             >
               {NAV.map(({ to, label }) => (
                 <NavLink
